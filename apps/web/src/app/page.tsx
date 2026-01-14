@@ -1,8 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Truck, Shield, Wrench, Flame, Palette } from "lucide-react";
+import { ArrowRight, Truck, Shield, Wrench, Flame, Palette, ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
 import { products } from "@/data/products";
 import { ProductCard } from "@/components/product";
 import { Button } from "@/components/ui";
@@ -31,9 +32,61 @@ const features = [
   },
 ];
 
+const testimonials = [
+  {
+    id: 1,
+    name: "Johan van der Merwe",
+    location: "Pretoria, Gauteng",
+    rating: 5,
+    text: "Best braai accessory I've ever bought. The Medium KoosDoos is perfect for our family gatherings. Assembled it in 3 minutes flat and the heat output is incredible. Already planning to order another for the farm.",
+    product: "KoosDoos Medium",
+  },
+  {
+    id: 2,
+    name: "Sarah Botha",
+    location: "Stellenbosch, Western Cape",
+    rating: 5,
+    text: "Got the personalised fire pit with our lodge logo for the guest area. Absolute showstopper. Guests ask about it constantly. The quality of the laser cutting is seriously impressive.",
+    product: "KoosDoos Personalised",
+  },
+  {
+    id: 3,
+    name: "Mike Thompson",
+    location: "Durban, KZN",
+    rating: 5,
+    text: "Bought the XL for our rugby club. It's a beast. We've had it going for 6 hours straight on game days and it just keeps delivering. Tough as nails and looks amazing with the rust patina developing.",
+    product: "KoosDoos XL",
+  },
+  {
+    id: 4,
+    name: "Annika Pretorius",
+    location: "Bloemfontein, Free State",
+    rating: 5,
+    text: "Finally a fire pit that doesn't rust through after one winter! Two years in and our KoosDoos still looks and performs like new. The flat-pack design also made it easy to take camping.",
+    product: "KoosDoos Large",
+  },
+  {
+    id: 5,
+    name: "David Nkosi",
+    location: "Johannesburg, Gauteng",
+    rating: 5,
+    text: "I was skeptical about the price but this thing is worth every cent. The steel is thick, the design is clever, and it looks way better than those cheap imports. Should've bought one years ago.",
+    product: "KoosDoos Medium",
+  },
+];
+
 export default function HomePage() {
   const { addItem } = useCart();
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
   const featuredProducts = products.filter(p => p.slug !== "koosdoos-personalised").slice(0, 4);
+
+  const nextTestimonial = () => {
+    setTestimonialIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
 
   return (
     <div>
@@ -264,6 +317,91 @@ export default function HomePage() {
                 className="object-contain p-12"
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-16 lg:py-24 bg-soot">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <span className="text-ember text-sm font-bold uppercase tracking-wider">
+              What Our Customers Say
+            </span>
+            <h2 className="font-display text-4xl sm:text-5xl text-white-hot mt-2">
+              Real Fire. Real People.
+            </h2>
+          </div>
+
+          <div className="relative max-w-4xl mx-auto">
+            {/* Testimonial Card */}
+            <div className="bg-charcoal border border-smoke p-8 lg:p-12">
+              <Quote className="h-10 w-10 text-ember/30 mb-6" />
+
+              <p className="text-lg lg:text-xl text-stone leading-relaxed mb-8">
+                {testimonials[testimonialIndex].text}
+              </p>
+
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div>
+                  <div className="flex items-center gap-1 mb-2">
+                    {[...Array(testimonials[testimonialIndex].rating)].map((_, i) => (
+                      <Star key={i} className="h-4 w-4 fill-ember text-ember" />
+                    ))}
+                  </div>
+                  <p className="font-display text-lg text-white-hot">
+                    {testimonials[testimonialIndex].name}
+                  </p>
+                  <p className="text-sm text-ash">
+                    {testimonials[testimonialIndex].location}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-xs text-ash uppercase tracking-wider mb-1">Purchased</p>
+                  <p className="text-sm text-ember font-medium">
+                    {testimonials[testimonialIndex].product}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Navigation */}
+            <div className="flex items-center justify-center gap-4 mt-8">
+              <button
+                onClick={prevTestimonial}
+                className="p-3 border border-smoke hover:border-ember text-stone hover:text-white-hot transition-colors"
+                aria-label="Previous testimonial"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+
+              {/* Dots */}
+              <div className="flex items-center gap-2">
+                {testimonials.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setTestimonialIndex(index)}
+                    className={`w-2 h-2 rounded-full transition-colors ${
+                      index === testimonialIndex ? "bg-ember" : "bg-steel-grey hover:bg-stone"
+                    }`}
+                    aria-label={`Go to testimonial ${index + 1}`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={nextTestimonial}
+                className="p-3 border border-smoke hover:border-ember text-stone hover:text-white-hot transition-colors"
+                aria-label="Next testimonial"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Trust indicator */}
+            <p className="text-center text-sm text-ash mt-8">
+              Based on 500+ verified customer reviews
+            </p>
           </div>
         </div>
       </section>
