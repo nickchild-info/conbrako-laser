@@ -7,6 +7,7 @@ import Link from "next/link";
 import {
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
   Minus,
   Plus,
   Truck,
@@ -35,6 +36,34 @@ export default function ProductPage() {
   );
   const [quantity, setQuantity] = useState(1);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  const faqs = [
+    {
+      question: "How long does delivery take?",
+      answer: "We ship within 3-5 business days. Free shipping on orders over R2,500. Delivery times vary by location but typically arrive within 7-14 business days."
+    },
+    {
+      question: "Is assembly required?",
+      answer: "Our fire pits are designed as flat-pack for easy transport and storage. Assembly is simple and tool-free - just slot the panels together. Most customers have their fire pit ready in under 5 minutes."
+    },
+    {
+      question: "What fuel can I use?",
+      answer: "Our fire pits work great with wood logs, charcoal, or briquettes. We recommend dry hardwood for the best flame and least smoke. Never use petrol, paraffin, or other accelerants."
+    },
+    {
+      question: "Will it rust?",
+      answer: "Our fire pits are made from quality mild steel which will develop a natural rust patina over time. This is normal and adds character. For a raw steel look, leave it be. To slow oxidation, you can apply high-heat paint or oil after use."
+    },
+    {
+      question: "What's your warranty policy?",
+      answer: "We stand behind our products with a 12-month warranty against manufacturing defects. Normal wear, rust patina, and heat discoloration are not covered as these are expected characteristics of steel fire pits."
+    },
+    {
+      question: "Can I get a custom design?",
+      answer: "Absolutely! Visit our Personalise page to choose from our design templates or upload your own artwork. Custom designs are laser-cut to your specification and add approximately 5-7 days to production time."
+    }
+  ];
 
   if (!product) {
     notFound();
@@ -380,6 +409,51 @@ export default function ProductPage() {
                 </div>
               </dl>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Accordion */}
+      <section className="py-12 bg-charcoal">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="font-display text-3xl text-white-hot mb-8 text-center">
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-3">
+            {faqs.map((faq, index) => (
+              <div
+                key={index}
+                className="border border-smoke bg-soot overflow-hidden"
+              >
+                <button
+                  onClick={() =>
+                    setOpenFaqIndex(openFaqIndex === index ? null : index)
+                  }
+                  className="w-full flex items-center justify-between p-4 text-left hover:bg-smoke/30 transition-colors"
+                  aria-expanded={openFaqIndex === index}
+                >
+                  <span className="font-medium text-white-hot pr-4">
+                    {faq.question}
+                  </span>
+                  <ChevronDown
+                    className={cn(
+                      "h-5 w-5 text-ember flex-shrink-0 transition-transform duration-200",
+                      openFaqIndex === index && "rotate-180"
+                    )}
+                  />
+                </button>
+                <div
+                  className={cn(
+                    "overflow-hidden transition-all duration-200",
+                    openFaqIndex === index ? "max-h-96" : "max-h-0"
+                  )}
+                >
+                  <p className="px-4 pb-4 text-stone leading-relaxed">
+                    {faq.answer}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
