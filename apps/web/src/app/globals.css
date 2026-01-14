@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+/* CONBRAKO Brand Colors */
+:root {
+  /* Primary - Fire/Heat */
+  --ember: #d84315;
+  --flame: #ff5722;
+
+  /* Secondary - Steel/Industrial */
+  --charcoal: #0a0a0a;
+  --soot: #1a1a1a;
+  --steel-grey: #404040;
+
+  /* Neutrals */
+  --sand: #d4c5b0;
+  --stone: #8a7f72;
+  --ash: #6b6b6b;
+  --smoke: #2a2a2a;
+  --white-hot: #fafafa;
+
+  /* Semantic colors */
+  --background: var(--charcoal);
+  --foreground: var(--white-hot);
+  --card: var(--soot);
+  --card-foreground: var(--white-hot);
+  --border: var(--smoke);
+  --muted: var(--steel-grey);
+  --muted-foreground: var(--stone);
+  --primary: var(--ember);
+  --primary-foreground: var(--white-hot);
+  --accent: var(--flame);
+  --accent-foreground: var(--white-hot);
+  --destructive: #dc2626;
+  --destructive-foreground: var(--white-hot);
+  --success: #16a34a;
+  --success-foreground: var(--white-hot);
+}
+
+@theme inline {
+  /* Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+
+  /* Brand specific colors */
+  --color-ember: var(--ember);
+  --color-flame: var(--flame);
+  --color-charcoal: var(--charcoal);
+  --color-soot: var(--soot);
+  --color-steel-grey: var(--steel-grey);
+  --color-sand: var(--sand);
+  --color-stone: var(--stone);
+  --color-ash: var(--ash);
+  --color-smoke: var(--smoke);
+  --color-white-hot: var(--white-hot);
+
+  /* Typography */
+  --font-display: var(--font-bebas-neue);
+  --font-body: var(--font-inter);
+
+  /* Spacing */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+/* Headlines use display font */
+h1, h2, h3, .font-display {
+  font-family: var(--font-display), Impact, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--charcoal);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--steel-grey);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ash);
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background: var(--ember);
+  color: var(--white-hot);
+}

@@ -1,0 +1,534 @@
+{
+  "meta": {
+    "product_name": "KoosDoos Fire Pits",
+    "doc_type": "Development Tracker",
+    "version": "1.0.0",
+    "last_updated": "2026-01-14",
+    "currency": "ZAR",
+    "locale": "en-ZA"
+  },
+  "status_legend": {
+    "not_started": "Work has not begun",
+    "in_progress": "Currently being worked on",
+    "completed": "Finished and tested",
+    "blocked": "Waiting on dependency or decision",
+    "deferred": "Moved to future phase"
+  },
+  "phases": [
+    {
+      "id": "phase_1",
+      "name": "Frontend Foundation",
+      "description": "Core frontend components and pages",
+      "status": "completed",
+      "workstreams": [
+        {
+          "id": "ws_1_1",
+          "name": "Design System & Layout",
+          "tasks": [
+            { "id": "t_1_1_1", "task": "Configure Tailwind with brand colors", "status": "completed", "notes": "Brand colors from guidelines implemented" },
+            { "id": "t_1_1_2", "task": "Set up Google Fonts (Bebas Neue, Inter)", "status": "completed", "notes": "Configured in layout.tsx" },
+            { "id": "t_1_1_3", "task": "Create Header component with navigation", "status": "completed", "notes": "Includes logo, nav links, cart icon" },
+            { "id": "t_1_1_4", "task": "Create Footer component", "status": "completed", "notes": "Newsletter, links, social icons" },
+            { "id": "t_1_1_5", "task": "Create Breadcrumbs component", "status": "completed", "notes": "" }
+          ]
+        },
+        {
+          "id": "ws_1_2",
+          "name": "Product Listing Page (PLP)",
+          "tasks": [
+            { "id": "t_1_2_1", "task": "Create collection page with dynamic routing", "status": "completed", "notes": "/collections/[slug]" },
+            { "id": "t_1_2_2", "task": "Build ProductCard component with badges", "status": "completed", "notes": "" },
+            { "id": "t_1_2_3", "task": "Implement sort functionality", "status": "completed", "notes": "Featured, price low/high, rating" },
+            { "id": "t_1_2_4", "task": "Implement filter UI", "status": "completed", "notes": "Basic filters implemented" },
+            { "id": "t_1_2_5", "task": "Create PromoTile component", "status": "completed", "notes": "" },
+            { "id": "t_1_2_6", "task": "Add product image carousel to cards", "status": "not_started", "notes": "Currently single image only" }
+          ]
+        },
+        {
+          "id": "ws_1_3",
+          "name": "Product Detail Page (PDP)",
+          "tasks": [
+            { "id": "t_1_3_1", "task": "Create product page with dynamic routing", "status": "completed", "notes": "/products/[slug]" },
+            { "id": "t_1_3_2", "task": "Build image gallery with thumbnails", "status": "completed", "notes": "" },
+            { "id": "t_1_3_3", "task": "Add variant/size selector", "status": "completed", "notes": "" },
+            { "id": "t_1_3_4", "task": "Add to cart functionality", "status": "completed", "notes": "" },
+            { "id": "t_1_3_5", "task": "Add specs/features section", "status": "completed", "notes": "" },
+            { "id": "t_1_3_6", "task": "Add trust badges (warranty, shipping)", "status": "completed", "notes": "" },
+            { "id": "t_1_3_7", "task": "Add FAQ accordion", "status": "not_started", "notes": "" },
+            { "id": "t_1_3_8", "task": "Add related products section", "status": "not_started", "notes": "" }
+          ]
+        },
+        {
+          "id": "ws_1_4",
+          "name": "Cart",
+          "tasks": [
+            { "id": "t_1_4_1", "task": "Create cart context with state management", "status": "completed", "notes": "Using React Context" },
+            { "id": "t_1_4_2", "task": "Implement localStorage persistence", "status": "completed", "notes": "" },
+            { "id": "t_1_4_3", "task": "Build CartDrawer slide-out component", "status": "completed", "notes": "" },
+            { "id": "t_1_4_4", "task": "Update quantity functionality", "status": "completed", "notes": "" },
+            { "id": "t_1_4_5", "task": "Remove item functionality", "status": "completed", "notes": "" },
+            { "id": "t_1_4_6", "task": "Create dedicated /cart page", "status": "not_started", "notes": "Currently drawer only" },
+            { "id": "t_1_4_7", "task": "Add shipping estimate display", "status": "not_started", "notes": "" }
+          ]
+        },
+        {
+          "id": "ws_1_5",
+          "name": "Personalise Feature",
+          "tasks": [
+            { "id": "t_1_5_1", "task": "Create /personalise page", "status": "completed", "notes": "" },
+            { "id": "t_1_5_2", "task": "Build template selection grid", "status": "completed", "notes": "12 placeholder templates" },
+            { "id": "t_1_5_3", "task": "Implement category filtering", "status": "completed", "notes": "Wildlife, Nature, Sports, Custom, Patterns" },
+            { "id": "t_1_5_4", "task": "Add file upload (PNG, JPG, SVG, DXF)", "status": "completed", "notes": "Frontend only, no backend" },
+            { "id": "t_1_5_5", "task": "Size selection with pricing", "status": "completed", "notes": "" },
+            { "id": "t_1_5_6", "task": "Order summary sidebar", "status": "completed", "notes": "" },
+            { "id": "t_1_5_7", "task": "Add to cart from personalise page", "status": "not_started", "notes": "Button exists but not wired to cart" },
+            { "id": "t_1_5_8", "task": "DXF file validation", "status": "not_started", "notes": "Requires backend" },
+            { "id": "t_1_5_9", "task": "Design preview rendering", "status": "not_started", "notes": "Show design on fire pit mockup" }
+          ]
+        },
+        {
+          "id": "ws_1_6",
+          "name": "Home Page",
+          "tasks": [
+            { "id": "t_1_6_1", "task": "Hero section", "status": "completed", "notes": "" },
+            { "id": "t_1_6_2", "task": "Featured products grid", "status": "completed", "notes": "" },
+            { "id": "t_1_6_3", "task": "Personalise CTA section", "status": "completed", "notes": "" },
+            { "id": "t_1_6_4", "task": "Why KoosDoos section", "status": "completed", "notes": "" },
+            { "id": "t_1_6_5", "task": "Testimonials carousel", "status": "not_started", "notes": "" },
+            { "id": "t_1_6_6", "task": "Instagram feed integration", "status": "deferred", "notes": "Phase 2" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase_2",
+      "name": "Backend API",
+      "description": "FastAPI backend with database and business logic",
+      "status": "not_started",
+      "workstreams": [
+        {
+          "id": "ws_2_1",
+          "name": "Project Setup",
+          "tasks": [
+            { "id": "t_2_1_1", "task": "Initialize FastAPI project in apps/api", "status": "not_started", "notes": "" },
+            { "id": "t_2_1_2", "task": "Configure Poetry/pip dependencies", "status": "not_started", "notes": "" },
+            { "id": "t_2_1_3", "task": "Set up Docker Compose for Postgres", "status": "not_started", "notes": "" },
+            { "id": "t_2_1_4", "task": "Configure environment variables (.env)", "status": "not_started", "notes": "" },
+            { "id": "t_2_1_5", "task": "Set up SQLAlchemy/Alembic for migrations", "status": "not_started", "notes": "" },
+            { "id": "t_2_1_6", "task": "Configure CORS for frontend", "status": "not_started", "notes": "" }
+          ]
+        },
+        {
+          "id": "ws_2_2",
+          "name": "Database Models",
+          "tasks": [
+            { "id": "t_2_2_1", "task": "Create Product model", "status": "not_started", "notes": "id, slug, title, subtitle, description, badges, seats_min, seats_max, material, finish" },
+            { "id": "t_2_2_2", "task": "Create Variant model", "status": "not_started", "notes": "id, product_id, sku, price, compare_at_price, inventory_qty, weight, dimensions" },
+            { "id": "t_2_2_3", "task": "Create ProductImage model", "status": "not_started", "notes": "" },
+            { "id": "t_2_2_4", "task": "Create Collection model", "status": "not_started", "notes": "" },
+            { "id": "t_2_2_5", "task": "Create CollectionProduct join table", "status": "not_started", "notes": "" },
+            { "id": "t_2_2_6", "task": "Create ReviewSummary model", "status": "not_started", "notes": "" },
+            { "id": "t_2_2_7", "task": "Create PromoBlock model", "status": "not_started", "notes": "" },
+            { "id": "t_2_2_8", "task": "Create Order model", "status": "not_started", "notes": "id, stripe_session_id, status, customer_email, total, shipping_address, created_at" },
+            { "id": "t_2_2_9", "task": "Create OrderItem model", "status": "not_started", "notes": "" },
+            { "id": "t_2_2_10", "task": "Create DesignTemplate model", "status": "not_started", "notes": "For personalised designs" },
+            { "id": "t_2_2_11", "task": "Create CustomDesignOrder model", "status": "not_started", "notes": "Links order to uploaded design file" }
+          ]
+        },
+        {
+          "id": "ws_2_3",
+          "name": "Product API Endpoints",
+          "tasks": [
+            { "id": "t_2_3_1", "task": "GET /api/products - List products with filters", "status": "not_started", "notes": "" },
+            { "id": "t_2_3_2", "task": "GET /api/products/{slug} - Get product by slug", "status": "not_started", "notes": "" },
+            { "id": "t_2_3_3", "task": "GET /api/collections - List collections", "status": "not_started", "notes": "" },
+            { "id": "t_2_3_4", "task": "GET /api/collections/{slug} - Get collection with products", "status": "not_started", "notes": "" },
+            { "id": "t_2_3_5", "task": "GET /api/design-templates - List design templates", "status": "not_started", "notes": "" }
+          ]
+        },
+        {
+          "id": "ws_2_4",
+          "name": "Cart & Checkout API",
+          "tasks": [
+            { "id": "t_2_4_1", "task": "POST /api/cart/validate - Validate cart items and prices", "status": "not_started", "notes": "" },
+            { "id": "t_2_4_2", "task": "POST /api/checkout/create-session - Create Stripe checkout session", "status": "not_started", "notes": "" },
+            { "id": "t_2_4_3", "task": "GET /api/orders/{id} - Get order details", "status": "not_started", "notes": "" }
+          ]
+        },
+        {
+          "id": "ws_2_5",
+          "name": "File Upload API",
+          "tasks": [
+            { "id": "t_2_5_1", "task": "POST /api/uploads/design - Upload custom design file", "status": "not_started", "notes": "" },
+            { "id": "t_2_5_2", "task": "Validate DXF file structure", "status": "not_started", "notes": "" },
+            { "id": "t_2_5_3", "task": "Store files in S3-compatible storage", "status": "not_started", "notes": "" },
+            { "id": "t_2_5_4", "task": "Generate design thumbnails", "status": "not_started", "notes": "" }
+          ]
+        },
+        {
+          "id": "ws_2_6",
+          "name": "Data Seeding",
+          "tasks": [
+            { "id": "t_2_6_1", "task": "Create seed script for products", "status": "not_started", "notes": "KoosDoos Small/Medium/Large/XL" },
+            { "id": "t_2_6_2", "task": "Create seed script for collections", "status": "not_started", "notes": "" },
+            { "id": "t_2_6_3", "task": "Create seed script for design templates", "status": "not_started", "notes": "" },
+            { "id": "t_2_6_4", "task": "Add sample promo blocks", "status": "not_started", "notes": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase_3",
+      "name": "Stripe Checkout Integration",
+      "description": "Payment processing and order management",
+      "status": "not_started",
+      "workstreams": [
+        {
+          "id": "ws_3_1",
+          "name": "Stripe Setup",
+          "tasks": [
+            { "id": "t_3_1_1", "task": "Create Stripe account and get API keys", "status": "not_started", "notes": "" },
+            { "id": "t_3_1_2", "task": "Configure test mode products in Stripe", "status": "not_started", "notes": "" },
+            { "id": "t_3_1_3", "task": "Set up webhook endpoint", "status": "not_started", "notes": "" },
+            { "id": "t_3_1_4", "task": "Configure webhook signing secret", "status": "not_started", "notes": "" }
+          ]
+        },
+        {
+          "id": "ws_3_2",
+          "name": "Checkout Flow",
+          "tasks": [
+            { "id": "t_3_2_1", "task": "Create Stripe Checkout session with line items", "status": "not_started", "notes": "" },
+            { "id": "t_3_2_2", "task": "Include shipping options in checkout", "status": "not_started", "notes": "" },
+            { "id": "t_3_2_3", "task": "Handle success redirect to /order-confirmation", "status": "not_started", "notes": "" },
+            { "id": "t_3_2_4", "task": "Handle cancel redirect back to cart", "status": "not_started", "notes": "" },
+            { "id": "t_3_2_5", "task": "Support custom design orders with metadata", "status": "not_started", "notes": "Link design file to order" }
+          ]
+        },
+        {
+          "id": "ws_3_3",
+          "name": "Webhooks",
+          "tasks": [
+            { "id": "t_3_3_1", "task": "Handle checkout.session.completed event", "status": "not_started", "notes": "Create order record" },
+            { "id": "t_3_3_2", "task": "Handle payment_intent.payment_failed event", "status": "not_started", "notes": "Log failure" },
+            { "id": "t_3_3_3", "task": "Verify webhook signatures", "status": "not_started", "notes": "" },
+            { "id": "t_3_3_4", "task": "Update inventory on successful order", "status": "not_started", "notes": "" }
+          ]
+        },
+        {
+          "id": "ws_3_4",
+          "name": "Order Confirmation",
+          "tasks": [
+            { "id": "t_3_4_1", "task": "Create /order-confirmation page", "status": "not_started", "notes": "" },
+            { "id": "t_3_4_2", "task": "Display order summary and details", "status": "not_started", "notes": "" },
+            { "id": "t_3_4_3", "task": "Clear cart after successful order", "status": "not_started", "notes": "" },
+            { "id": "t_3_4_4", "task": "Send confirmation email", "status": "not_started", "notes": "Can use Stripe email initially" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase_4",
+      "name": "Frontend-Backend Integration",
+      "description": "Connect frontend to backend API",
+      "status": "not_started",
+      "workstreams": [
+        {
+          "id": "ws_4_1",
+          "name": "API Client Setup",
+          "tasks": [
+            { "id": "t_4_1_1", "task": "Create API client utility with fetch/axios", "status": "not_started", "notes": "" },
+            { "id": "t_4_1_2", "task": "Configure API base URL from environment", "status": "not_started", "notes": "" },
+            { "id": "t_4_1_3", "task": "Add error handling and retry logic", "status": "not_started", "notes": "" }
+          ]
+        },
+        {
+          "id": "ws_4_2",
+          "name": "Data Fetching",
+          "tasks": [
+            { "id": "t_4_2_1", "task": "Replace mock products with API data", "status": "not_started", "notes": "" },
+            { "id": "t_4_2_2", "task": "Replace mock collections with API data", "status": "not_started", "notes": "" },
+            { "id": "t_4_2_3", "task": "Fetch design templates from API", "status": "not_started", "notes": "" },
+            { "id": "t_4_2_4", "task": "Implement server-side data fetching", "status": "not_started", "notes": "Use Next.js server components" }
+          ]
+        },
+        {
+          "id": "ws_4_3",
+          "name": "Checkout Integration",
+          "tasks": [
+            { "id": "t_4_3_1", "task": "Create checkout button that calls API", "status": "not_started", "notes": "" },
+            { "id": "t_4_3_2", "task": "Redirect to Stripe checkout URL", "status": "not_started", "notes": "" },
+            { "id": "t_4_3_3", "task": "Handle checkout errors gracefully", "status": "not_started", "notes": "" }
+          ]
+        },
+        {
+          "id": "ws_4_4",
+          "name": "File Upload Integration",
+          "tasks": [
+            { "id": "t_4_4_1", "task": "Upload design files to API", "status": "not_started", "notes": "" },
+            { "id": "t_4_4_2", "task": "Show upload progress", "status": "not_started", "notes": "" },
+            { "id": "t_4_4_3", "task": "Display validation errors", "status": "not_started", "notes": "" },
+            { "id": "t_4_4_4", "task": "Store upload reference for checkout", "status": "not_started", "notes": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase_5",
+      "name": "Admin & CMS",
+      "description": "Product and order management interface",
+      "status": "not_started",
+      "workstreams": [
+        {
+          "id": "ws_5_1",
+          "name": "Admin API Endpoints",
+          "tasks": [
+            { "id": "t_5_1_1", "task": "POST /api/admin/products - Create product", "status": "not_started", "notes": "" },
+            { "id": "t_5_1_2", "task": "PUT /api/admin/products/{id} - Update product", "status": "not_started", "notes": "" },
+            { "id": "t_5_1_3", "task": "DELETE /api/admin/products/{id} - Delete product", "status": "not_started", "notes": "" },
+            { "id": "t_5_1_4", "task": "CRUD endpoints for collections", "status": "not_started", "notes": "" },
+            { "id": "t_5_1_5", "task": "CRUD endpoints for promo blocks", "status": "not_started", "notes": "" },
+            { "id": "t_5_1_6", "task": "GET /api/admin/orders - List orders", "status": "not_started", "notes": "" },
+            { "id": "t_5_1_7", "task": "PUT /api/admin/orders/{id}/status - Update order status", "status": "not_started", "notes": "" },
+            { "id": "t_5_1_8", "task": "Admin authentication middleware", "status": "not_started", "notes": "" }
+          ]
+        },
+        {
+          "id": "ws_5_2",
+          "name": "Admin UI",
+          "tasks": [
+            { "id": "t_5_2_1", "task": "Create /admin route with auth", "status": "not_started", "notes": "" },
+            { "id": "t_5_2_2", "task": "Product management page", "status": "not_started", "notes": "" },
+            { "id": "t_5_2_3", "task": "Collection management page", "status": "not_started", "notes": "" },
+            { "id": "t_5_2_4", "task": "Order list and detail pages", "status": "not_started", "notes": "" },
+            { "id": "t_5_2_5", "task": "Design approval queue for custom orders", "status": "not_started", "notes": "" },
+            { "id": "t_5_2_6", "task": "Image upload to product", "status": "not_started", "notes": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase_6",
+      "name": "Content Pages",
+      "description": "Static and informational pages",
+      "status": "not_started",
+      "workstreams": [
+        {
+          "id": "ws_6_1",
+          "name": "Static Pages",
+          "tasks": [
+            { "id": "t_6_1_1", "task": "Create /pages/about page", "status": "not_started", "notes": "" },
+            { "id": "t_6_1_2", "task": "Create /pages/faq page", "status": "not_started", "notes": "" },
+            { "id": "t_6_1_3", "task": "Create /pages/shipping page", "status": "not_started", "notes": "" },
+            { "id": "t_6_1_4", "task": "Create /pages/returns page", "status": "not_started", "notes": "" },
+            { "id": "t_6_1_5", "task": "Create /pages/warranty page", "status": "not_started", "notes": "" },
+            { "id": "t_6_1_6", "task": "Create /pages/contact page with form", "status": "not_started", "notes": "" }
+          ]
+        },
+        {
+          "id": "ws_6_2",
+          "name": "Legal Pages",
+          "tasks": [
+            { "id": "t_6_2_1", "task": "Create /pages/privacy page", "status": "not_started", "notes": "" },
+            { "id": "t_6_2_2", "task": "Create /pages/terms page", "status": "not_started", "notes": "" },
+            { "id": "t_6_2_3", "task": "Cookie consent banner", "status": "not_started", "notes": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase_7",
+      "name": "SEO & Analytics",
+      "description": "Search optimization and tracking",
+      "status": "not_started",
+      "workstreams": [
+        {
+          "id": "ws_7_1",
+          "name": "SEO Fundamentals",
+          "tasks": [
+            { "id": "t_7_1_1", "task": "Generate dynamic sitemap.xml", "status": "not_started", "notes": "" },
+            { "id": "t_7_1_2", "task": "Create robots.txt", "status": "not_started", "notes": "" },
+            { "id": "t_7_1_3", "task": "Add canonical URLs to all pages", "status": "not_started", "notes": "" },
+            { "id": "t_7_1_4", "task": "Add OpenGraph meta tags", "status": "not_started", "notes": "" },
+            { "id": "t_7_1_5", "task": "Add Twitter card meta tags", "status": "not_started", "notes": "" },
+            { "id": "t_7_1_6", "task": "Implement Schema.org Product structured data", "status": "not_started", "notes": "" },
+            { "id": "t_7_1_7", "task": "Implement Schema.org BreadcrumbList", "status": "not_started", "notes": "" }
+          ]
+        },
+        {
+          "id": "ws_7_2",
+          "name": "Analytics",
+          "tasks": [
+            { "id": "t_7_2_1", "task": "Set up Google Tag Manager", "status": "not_started", "notes": "" },
+            { "id": "t_7_2_2", "task": "Configure GA4 via GTM", "status": "not_started", "notes": "" },
+            { "id": "t_7_2_3", "task": "Track view_item event on PDP", "status": "not_started", "notes": "" },
+            { "id": "t_7_2_4", "task": "Track add_to_cart event", "status": "not_started", "notes": "" },
+            { "id": "t_7_2_5", "task": "Track begin_checkout event", "status": "not_started", "notes": "" },
+            { "id": "t_7_2_6", "task": "Track purchase event from webhook", "status": "not_started", "notes": "" },
+            { "id": "t_7_2_7", "task": "Set up conversion tracking", "status": "not_started", "notes": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase_8",
+      "name": "Performance & Quality",
+      "description": "Optimization, testing, and deployment",
+      "status": "not_started",
+      "workstreams": [
+        {
+          "id": "ws_8_1",
+          "name": "Performance",
+          "tasks": [
+            { "id": "t_8_1_1", "task": "Optimize images (WebP, responsive)", "status": "not_started", "notes": "" },
+            { "id": "t_8_1_2", "task": "Implement lazy loading for images", "status": "not_started", "notes": "" },
+            { "id": "t_8_1_3", "task": "Configure CDN caching", "status": "not_started", "notes": "" },
+            { "id": "t_8_1_4", "task": "Minimize JavaScript bundle", "status": "not_started", "notes": "" },
+            { "id": "t_8_1_5", "task": "Achieve Lighthouse 85+ mobile performance", "status": "not_started", "notes": "" }
+          ]
+        },
+        {
+          "id": "ws_8_2",
+          "name": "Accessibility",
+          "tasks": [
+            { "id": "t_8_2_1", "task": "Keyboard navigation for all interactive elements", "status": "not_started", "notes": "" },
+            { "id": "t_8_2_2", "task": "Add ARIA labels where needed", "status": "not_started", "notes": "" },
+            { "id": "t_8_2_3", "task": "Ensure color contrast compliance", "status": "not_started", "notes": "" },
+            { "id": "t_8_2_4", "task": "Add alt text to all images", "status": "not_started", "notes": "" },
+            { "id": "t_8_2_5", "task": "Achieve Lighthouse 95+ accessibility", "status": "not_started", "notes": "" }
+          ]
+        },
+        {
+          "id": "ws_8_3",
+          "name": "Testing",
+          "tasks": [
+            { "id": "t_8_3_1", "task": "Set up Jest for unit tests", "status": "not_started", "notes": "" },
+            { "id": "t_8_3_2", "task": "Set up Playwright for E2E tests", "status": "not_started", "notes": "" },
+            { "id": "t_8_3_3", "task": "Write unit tests for cart logic", "status": "not_started", "notes": "" },
+            { "id": "t_8_3_4", "task": "Write E2E test: browse to checkout", "status": "not_started", "notes": "" },
+            { "id": "t_8_3_5", "task": "Write API tests for backend", "status": "not_started", "notes": "" }
+          ]
+        },
+        {
+          "id": "ws_8_4",
+          "name": "CI/CD & Deployment",
+          "tasks": [
+            { "id": "t_8_4_1", "task": "Set up GitHub Actions CI", "status": "not_started", "notes": "" },
+            { "id": "t_8_4_2", "task": "Run linting on PR", "status": "not_started", "notes": "" },
+            { "id": "t_8_4_3", "task": "Run tests on PR", "status": "not_started", "notes": "" },
+            { "id": "t_8_4_4", "task": "Deploy frontend to Vercel", "status": "not_started", "notes": "" },
+            { "id": "t_8_4_5", "task": "Deploy API to Railway/Fly.io", "status": "not_started", "notes": "" },
+            { "id": "t_8_4_6", "task": "Set up production database", "status": "not_started", "notes": "" },
+            { "id": "t_8_4_7", "task": "Configure production environment variables", "status": "not_started", "notes": "" },
+            { "id": "t_8_4_8", "task": "Set up error monitoring (Sentry)", "status": "not_started", "notes": "" }
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total_tasks": 142,
+    "completed": 32,
+    "in_progress": 0,
+    "not_started": 107,
+    "blocked": 0,
+    "deferred": 3,
+    "completion_percentage": 22.5
+  },
+  "next_recommended_actions": [
+    {
+      "priority": 1,
+      "action": "Set up FastAPI backend with Docker Postgres",
+      "phase": "phase_2",
+      "workstream": "ws_2_1",
+      "reason": "Core infrastructure needed for checkout and data persistence"
+    },
+    {
+      "priority": 2,
+      "action": "Create database models and run migrations",
+      "phase": "phase_2",
+      "workstream": "ws_2_2",
+      "reason": "Required before API endpoints can be built"
+    },
+    {
+      "priority": 3,
+      "action": "Implement Stripe checkout integration",
+      "phase": "phase_3",
+      "workstream": "ws_3_1",
+      "reason": "Critical path to accepting payments"
+    },
+    {
+      "priority": 4,
+      "action": "Wire personalise page add-to-cart button",
+      "phase": "phase_1",
+      "workstream": "ws_1_5",
+      "reason": "Quick frontend fix to complete personalise flow"
+    },
+    {
+      "priority": 5,
+      "action": "Create dedicated /cart page",
+      "phase": "phase_1",
+      "workstream": "ws_1_4",
+      "reason": "Better UX and required for checkout flow"
+    }
+  ],
+  "open_questions": [
+    {
+      "id": "q1",
+      "question": "Shipping provider integration - which courier service(s)?",
+      "status": "open",
+      "impact": "Affects checkout shipping options and API integration"
+    },
+    {
+      "id": "q2",
+      "question": "Domain name and hosting preferences?",
+      "status": "open",
+      "impact": "Affects deployment and DNS setup"
+    },
+    {
+      "id": "q3",
+      "question": "Email provider for transactional emails (order confirmation, etc.)?",
+      "status": "open",
+      "impact": "Can start with Stripe emails, but may want branded emails"
+    },
+    {
+      "id": "q4",
+      "question": "Custom design approval workflow - manual or automated?",
+      "status": "open",
+      "impact": "Affects admin UI and order processing"
+    },
+    {
+      "id": "q5",
+      "question": "Inventory management - track stock levels or made-to-order?",
+      "status": "open",
+      "impact": "Affects database model and checkout logic"
+    }
+  ],
+  "tech_stack": {
+    "frontend": {
+      "framework": "Next.js 15 (App Router)",
+      "styling": "Tailwind CSS v4",
+      "state": "React Context",
+      "language": "TypeScript"
+    },
+    "backend": {
+      "framework": "FastAPI",
+      "database": "PostgreSQL",
+      "orm": "SQLAlchemy",
+      "migrations": "Alembic",
+      "language": "Python 3.11+"
+    },
+    "payments": {
+      "provider": "Stripe Checkout",
+      "webhooks": "Stripe Webhooks"
+    },
+    "storage": {
+      "files": "S3-compatible (design uploads)",
+      "images": "CDN"
+    },
+    "deployment": {
+      "frontend": "Vercel (recommended)",
+      "backend": "Railway / Fly.io",
+      "database": "Railway / Supabase / Neon"
+    }
+  }
+}

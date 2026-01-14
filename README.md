@@ -1,6 +1,6 @@
-# KoosDoos Fire Pits — Web Storefront (PLP-first)
+# KoosDoos Fire Pits — Web Storefront
 
-A rugged, product-led ecommerce website for **KoosDoos Fire Pits** (placeholder brand) selling “rough & tough” fire bomas / fire boxes.
+A rugged, product-led ecommerce website for **KoosDoos Fire Pits** selling "rough & tough" fire bomas / fire boxes. Built tough. Burns harder.
 
 Primary reference for UX patterns (structure, not visuals/assets): Solo Stove “Backyard Fire Pits” collection page:
 - Product listing grid with image carousel per card
@@ -41,10 +41,20 @@ Primary reference for UX patterns (structure, not visuals/assets): Solo Stove �
 1. Home
 2. Collection / PLP (Backyard Fire Pits equivalent)
 3. PDP (product detail)
-4. Cart (drawer + page)
-5. Checkout (Stripe hosted)
-6. Content pages: About, FAQs, Shipping/Returns, Warranty, Contact
-7. Legal: Privacy, Terms
+4. **Personalise** — Custom design page for premium laser-cut panels
+5. Cart (drawer + page)
+6. Checkout (Stripe hosted)
+7. Content pages: About, FAQs, Shipping/Returns, Warranty, Contact
+8. Legal: Privacy, Terms
+
+---
+
+# Personalise Feature
+The Personalise page allows customers to order custom laser-cut front panels with:
+- **Template Selection**: Pre-designed templates across categories (Wildlife, Nature, Sports, Custom, Patterns)
+- **Custom Upload**: Upload own designs (PNG, JPG, SVG, DXF formats supported)
+- **Size Selection**: Available in Medium, Large, and XL sizes
+- Premium pricing for personalised designs subject to approval
 
 ---
 
@@ -123,6 +133,16 @@ API: http://localhost:8000/docs
 - CollectionProduct (collection_id, product_id, sort_order)
 - ReviewSummary (product_id, rating_avg, rating_count)
 - PromoBlock (collection_id, position_index, title, copy, cta_text, cta_url, image_url)
+- DesignTemplate (id, name, category, thumbnail, svgPath) — for personalised designs
+
+## Product Lineup
+KoosDoos fire pits are available in four sizes:
+- **Small** (600×600×450mm) — Seats 2-4 people
+- **Medium** (750×750×500mm) — Seats 4-6 people ⭐ Best Seller
+- **Large** (900×900×550mm) — Seats 6-8 people
+- **XL** (1100×1100×600mm) — Seats 8-12 people
+
+All sizes available with optional personalised laser-cut front panels.
 
 ---
 

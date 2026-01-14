@@ -1,10 +1,12 @@
 {
   "meta": {
-    "product_name": "KoosDoos Fire Pits (placeholder)",
+    "product_name": "KoosDoos Fire Pits",
     "doc_type": "PRD",
-    "version": "0.1",
+    "version": "1.0",
     "owner": "Product/Founder",
-    "timezone": "Europe/London"
+    "timezone": "Africa/Johannesburg",
+    "currency": "ZAR",
+    "locale": "en-ZA"
   },
   "problem_statement": "Launch a rugged fire pit / fire boma ecommerce storefront with a high-performing product listing page (PLP) similar in structure to leading DTC patterns (grid, filters, quick add), optimized for conversion and SEO.",
   "success_metrics": {
@@ -41,10 +43,12 @@
       "Home page",
       "PLP (collection) with filters/sort, product grid, quick add",
       "PDP (product details) with gallery, options, trust blocks",
+      "Personalise page with template selection and custom design upload",
       "Cart (drawer + page)",
       "Stripe hosted checkout",
       "Order confirmation page",
       "Basic CMS-lite for products/collections/promos",
+      "Design approval workflow for custom orders",
       "SEO fundamentals (sitemap, robots, metadata, canonical)",
       "Analytics events"
     ],
@@ -61,13 +65,16 @@
       { "path": "/", "name": "Home" },
       { "path": "/collections/:collectionSlug", "name": "PLP / Collection" },
       { "path": "/products/:productSlug", "name": "PDP" },
+      { "path": "/personalise", "name": "Personalise / Custom Design" },
       { "path": "/cart", "name": "Cart" },
       { "path": "/checkout", "name": "Checkout redirect" },
-      { "path": "/pages/:pageSlug", "name": "Content Page (About/FAQ/etc.)" }
+      { "path": "/order-confirmation", "name": "Order Confirmation" },
+      { "path": "/pages/:pageSlug", "name": "Content Page (About/FAQ/etc.)" },
+      { "path": "/admin", "name": "Admin Dashboard" }
     ],
     "navigation": {
-      "header_links": ["Fire Pits", "Accessories (later)", "Bundles", "Learn", "Support"],
-      "utility_links": ["Search (later)", "Cart", "Country/Locale (later)"]
+      "header_links": ["Fire Pits", "Personalise", "Best Sellers", "About"],
+      "utility_links": ["Search (later)", "Cart"]
     }
   },
   "functional_requirements": {
