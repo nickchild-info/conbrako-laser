@@ -1,0 +1,246 @@
+{
+  "meta": {
+    "product_name": "KoosDoos Fire Pits (placeholder)",
+    "doc_type": "PRD",
+    "version": "0.1",
+    "owner": "Product/Founder",
+    "timezone": "Europe/London"
+  },
+  "problem_statement": "Launch a rugged fire pit / fire boma ecommerce storefront with a high-performing product listing page (PLP) similar in structure to leading DTC patterns (grid, filters, quick add), optimized for conversion and SEO.",
+  "success_metrics": {
+    "conversion_rate_target": 0.02,
+    "add_to_cart_rate_target": 0.06,
+    "checkout_completion_target": 0.55,
+    "lighthouse_mobile_performance_min": 85,
+    "lighthouse_accessibility_min": 95,
+    "core_web_vitals": {
+      "LCP_ms_p75_max": 2500,
+      "INP_ms_p75_max": 200,
+      "CLS_p75_max": 0.1
+    }
+  },
+  "personas": [
+    {
+      "name": "Backyard Host",
+      "needs": ["Looks great in the yard", "Safe-ish around family", "Big heat output", "Arrives fast"],
+      "objections": ["Too expensive", "Hard to assemble", "Rusts quickly"]
+    },
+    {
+      "name": "Rugged Camper / Braai Person",
+      "needs": ["Tough steel", "Packable/flat-pack", "Simple, repairable", "Good airflow"],
+      "objections": ["Too bulky", "Too precious", "Not real steel"]
+    },
+    {
+      "name": "Gift Buyer",
+      "needs": ["Clear bundles", "Reviews", "Warranty reassurance", "Easy checkout"],
+      "objections": ["Unsure of size", "Delivery uncertainty"]
+    }
+  ],
+  "scope": {
+    "mvp_in": [
+      "Home page",
+      "PLP (collection) with filters/sort, product grid, quick add",
+      "PDP (product details) with gallery, options, trust blocks",
+      "Cart (drawer + page)",
+      "Stripe hosted checkout",
+      "Order confirmation page",
+      "Basic CMS-lite for products/collections/promos",
+      "SEO fundamentals (sitemap, robots, metadata, canonical)",
+      "Analytics events"
+    ],
+    "mvp_out": [
+      "User accounts / wishlists",
+      "Subscriptions",
+      "Complex shipping rules",
+      "Dynamic personalization",
+      "Full reviews system (MVP stores rating summary only)"
+    ]
+  },
+  "information_architecture": {
+    "routes": [
+      { "path": "/", "name": "Home" },
+      { "path": "/collections/:collectionSlug", "name": "PLP / Collection" },
+      { "path": "/products/:productSlug", "name": "PDP" },
+      { "path": "/cart", "name": "Cart" },
+      { "path": "/checkout", "name": "Checkout redirect" },
+      { "path": "/pages/:pageSlug", "name": "Content Page (About/FAQ/etc.)" }
+    ],
+    "navigation": {
+      "header_links": ["Fire Pits", "Accessories (later)", "Bundles", "Learn", "Support"],
+      "utility_links": ["Search (later)", "Cart", "Country/Locale (later)"]
+    }
+  },
+  "functional_requirements": {
+    "plp": {
+      "ui_blocks": [
+        "Promo bar (e.g., free shipping threshold)",
+        "Breadcrumbs",
+        "Title + intro copy",
+        "Product count",
+        "Sort control",
+        "Filters (desktop sidebar or bar; mobile drawer)",
+        "Product grid",
+        "Mid-grid promo tile",
+        "Pagination"
+      ],
+      "filters": [
+        {
+          "key": "collection",
+          "type": "multi_select",
+          "values_source": "collections"
+        },
+        {
+          "key": "size",
+          "type": "multi_select",
+          "values": ["2-3 people", "4-6 people", "6-8 people"]
+        },
+        {
+          "key": "price",
+          "type": "range",
+          "values_source": "variants.price"
+        },
+        {
+          "key": "finish",
+          "type": "multi_select",
+          "values_source": "product.finish"
+        },
+        {
+          "key": "in_stock",
+          "type": "boolean",
+          "values": [true]
+        }
+      ],
+      "sort_options": [
+        { "key": "featured", "label": "Featured" },
+        { "key": "price_asc", "label": "Price (low to high)" },
+        { "key": "price_desc", "label": "Price (high to low)" },
+        { "key": "rating_desc", "label": "Top rated" },
+        { "key": "newest", "label": "Newest" }
+      ],
+      "product_card": {
+        "must_show": [
+          "image_carousel",
+          "badge",
+          "title",
+          "short_description",
+          "review_summary",
+          "price_and_compare_at",
+          "add_to_cart_or_choose_options"
+        ],
+        "states": ["default", "sale", "new", "out_of_stock"]
+      }
+    },
+    "pdp": {
+      "ui_blocks": [
+        "Image gallery",
+        "Title + subtitle",
+        "Price + compare-at + savings",
+        "Variant picker (if needed)",
+        "Add to cart",
+        "Key benefits (icons)",
+        "Specs (dimensions, weight, material)",
+        "Delivery/returns",
+        "Warranty/trust block",
+        "FAQ accordion",
+        "Related products (later)"
+      ]
+    },
+    "cart_and_checkout": {
+      "cart": ["update quantity", "remove item", "estimated totals", "shipping messaging"],
+      "checkout": ["Stripe Checkout session creation", "success/cancel handling"],
+      "webhooks": ["payment_succeeded -> create order record", "payment_failed -> log"]
+    },
+    "cms_lite": {
+      "capabilities": [
+        "Create/edit products",
+        "Manage images + alt text",
+        "Set prices + compare-at",
+        "Assign products to collections + ordering",
+        "Create PLP promo blocks",
+        "Set global promo bar message"
+      ],
+      "implementation_notes": "MVP can be admin-only endpoints + seed scripts; add a simple admin UI later."
+    }
+  },
+  "data_requirements": {
+    "entities": {
+      "product": ["id", "slug", "title", "subtitle", "description", "badges", "seats_min", "seats_max", "material", "finish"],
+      "variant": ["id", "product_id", "sku", "price", "compare_at_price", "inventory_qty", "weight", "dimensions_mm"],
+      "image": ["id", "product_id", "url", "alt", "sort_order"],
+      "collection": ["id", "slug", "title", "hero_copy"],
+      "review_summary": ["product_id", "rating_avg", "rating_count"],
+      "promo_block": ["id", "collection_id", "position_index", "title", "copy", "cta_text", "cta_url", "image_url"]
+    },
+    "events": [
+      "view_plp",
+      "filter_change",
+      "sort_change",
+      "view_pdp",
+      "add_to_cart",
+      "remove_from_cart",
+      "begin_checkout",
+      "purchase"
+    ]
+  },
+  "non_functional_requirements": {
+    "seo": [
+      "Indexable PLP + PDP with canonical URLs",
+      "Schema.org Product on PDP",
+      "OpenGraph/Twitter cards",
+      "XML sitemap (products + collections + pages)",
+      "Robots.txt"
+    ],
+    "accessibility": [
+      "Keyboard navigable filters",
+      "ARIA for carousel/accordions",
+      "Visible focus states",
+      "Alt text required for product images"
+    ],
+    "performance": [
+      "Responsive images + lazy loading",
+      "CDN caching",
+      "Avoid layout shift on image load",
+      "Server-side rendering for PLP/PDP"
+    ],
+    "security": [
+      "No card data handled directly (Stripe hosted)",
+      "Webhook signature verification",
+      "Rate limit public API endpoints"
+    ],
+    "observability": ["structured logs", "error tracking (Sentry or similar)", "basic uptime checks"]
+  },
+  "milestones": [
+    {
+      "name": "M0 Discovery + Design",
+      "deliverables": ["Figma wireframes for PLP/PDP/Cart", "Brand starter kit", "Component inventory"]
+    },
+    {
+      "name": "M1 PLP Build",
+      "deliverables": ["Header/footer", "PLP grid", "filters/sort", "product card carousel", "promo tile", "SEO basics"]
+    },
+    {
+      "name": "M2 PDP + Cart",
+      "deliverables": ["PDP template", "cart drawer + page", "state handling (sale/new/oos)"]
+    },
+    {
+      "name": "M3 Checkout + Orders",
+      "deliverables": ["Stripe checkout", "webhooks", "order confirmation", "basic admin seed flow"]
+    },
+    {
+      "name": "M4 Harden",
+      "deliverables": ["Analytics events", "performance pass", "accessibility pass", "tests + CI", "deploy"]
+    }
+  ],
+  "acceptance_criteria": [
+    "A user can browse PLP, filter/sort, open PDP, add to cart, and purchase via Stripe.",
+    "PLP and PDP are server-rendered, indexable, and include metadata + sitemap.",
+    "Products/collections/promos can be updated without modifying frontend code (seed/admin).",
+    "Meets Lighthouse + Core Web Vitals targets in success_metrics."
+  ],
+  "open_questions": [
+    "Exact product lineup: sizes, bundles, accessories?",
+    "Countries/currencies at launch (UK only or multi-locale)?",
+    "Shipping provider integration timeline?",
+    "Reviews source: imported from elsewhere or collected natively later?"
+  ]
+}
