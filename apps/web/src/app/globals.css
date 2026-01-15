@@ -126,3 +126,17 @@ h1, h2, h3, .font-display {
   background: var(--ember);
   color: var(--white-hot);
 }
+
+/* Admin page - hide site chrome */
+body.admin-page > header,
+body.admin-page > footer,
+body.admin-page > a[href="#main-content"],
+body.admin-page > div[role="dialog"],
+body.admin-page > .fixed.inset-0,
+body.admin-page > .fixed.right-0 {
+  display: none !important;
+}
+
+body.admin-page > main {
+  min-height: 100vh;
+}

@@ -1,0 +1,522 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronDown,
+  Minus,
+  Plus,
+  Truck,
+  Shield,
+  Package,
+  Ruler,
+  Weight,
+  Flame,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { formatPrice } from "@/lib/data-service";
+import { Breadcrumbs } from "@/components/layout";
+import { Button, Badge, StarRating } from "@/components/ui";
+import { ProductCard } from "@/components/product";
+import { useCart } from "@/lib/cart-context";
+import { Product, Variant } from "@/types";
+import { trackViewItem, trackAddToCart, toAnalyticsItem } from "@/lib/analytics";
+
+interface ProductPageClientProps {
+  product: Product;
+  relatedProducts: Product[];
+}
+
+const faqs = [
+  {
+    question: "How long does delivery take?",
+    answer:
+      "We ship within 3-5 business days. Free shipping on orders over R2,500. Delivery times vary by location but typically arrive within 7-14 business days.",
+  },
+  {
+    question: "Is assembly required?",
+    answer:
+      "Our fire pits are designed as flat-pack for easy transport and storage. Assembly is simple and tool-free - just slot the panels together. Most customers have their fire pit ready in under 5 minutes.",
+  },
+  {
+    question: "What fuel can I use?",
+    answer:
+      "Our fire pits work great with wood logs, charcoal, or briquettes. We recommend dry hardwood for the best flame and least smoke. Never use petrol, paraffin, or other accelerants.",
+  },
+  {
+    question: "Will it rust?",
+    answer:
+      "Our fire pits are made from quality mild steel which will develop a natural rust patina over time. This is normal and adds character. For a raw steel look, leave it be. To slow oxidation, you can apply high-heat paint or oil after use.",
+  },
+  {
+    question: "What's your warranty policy?",
+    answer:
+      "We stand behind our products with a 12-month warranty against manufacturing defects. Normal wear, rust patina, and heat discoloration are not covered as these are expected characteristics of steel fire pits.",
+  },
+  {
+    question: "Can I get a custom design?",
+    answer:
+      "Absolutely! Visit our Personalise page to choose from our design templates or upload your own artwork. Custom designs are laser-cut to your specification and add approximately 5-7 days to production time.",
+  },
+];
+
+export function ProductPageClient({
+  product,
+  relatedProducts,
+}: ProductPageClientProps) {
+  const { addItem } = useCart();
+
+  const [selectedVariant, setSelectedVariant] = useState<Variant | null>(
+    product.variants[0] || null
+  );
+  const [quantity, setQuantity] = useState(1);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  // Track view_item event on page load
+  useEffect(() => {
+    if (product && selectedVariant) {
+      const analyticsItem = toAnalyticsItem(
+        product.id,
+        product.title,
+        selectedVariant.price,
+        1,
+        selectedVariant.name
+      );
+      trackViewItem(analyticsItem, selectedVariant.price);
+    }
+  }, [product.id]); // Only track once per product
+
+  const isOnSale =
+    selectedVariant?.compareAtPrice &&
+    selectedVariant.compareAtPrice > selectedVariant.price;
+
+  const savingsAmount = isOnSale
+    ? selectedVariant.compareAtPrice! - selectedVariant.price
+    : 0;
+
+  const handleAddToCart = () => {
+    if (selectedVariant) {
+      addItem(product.id, selectedVariant.id, quantity);
+
+      // Track add_to_cart event
+      const analyticsItem = toAnalyticsItem(
+        product.id,
+        product.title,
+        selectedVariant.price,
+        quantity,
+        selectedVariant.name
+      );
+      trackAddToCart(analyticsItem, selectedVariant.price * quantity);
+    }
+  };
+
+  return (
+    <div className="min-h-screen">
+      {/* Breadcrumbs */}
+      <div className="bg-soot border-b border-smoke py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Breadcrumbs
+            items={[
+              { label: "Fire Pits", href: "/collections/fire-pits" },
+              { label: product.title },
+            ]}
+          />
+        </div>
+      </div>
+
+      {/* Main product section */}
+      <section className="py-8 lg:py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="lg:grid lg:grid-cols-2 lg:gap-12">
+            {/* Image gallery */}
+            <div className="mb-8 lg:mb-0">
+              {/* Main image */}
+              <div className="relative aspect-square bg-soot border border-smoke overflow-hidden mb-4">
+                {product.images[currentImageIndex] ? (
+                  <Image
+                    src={product.images[currentImageIndex].url}
+                    alt={product.images[currentImageIndex].alt}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover"
+                    priority
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <Flame className="h-24 w-24 text-steel-grey" />
+                  </div>
+                )}
+
+                {/* Navigation arrows */}
+                {product.images.length > 1 && (
+                  <>
+                    <button
+                      onClick={() =>
+                        setCurrentImageIndex((prev) =>
+                          prev === 0 ? product.images.length - 1 : prev - 1
+                        )
+                      }
+                      className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-charcoal/80 text-white-hot hover:bg-charcoal transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ember"
+                      aria-label={`Previous image, currently showing image ${currentImageIndex + 1} of ${product.images.length}`}
+                    >
+                      <ChevronLeft className="h-6 w-6" aria-hidden="true" />
+                    </button>
+                    <button
+                      onClick={() =>
+                        setCurrentImageIndex((prev) =>
+                          prev === product.images.length - 1 ? 0 : prev + 1
+                        )
+                      }
+                      className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-charcoal/80 text-white-hot hover:bg-charcoal transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ember"
+                      aria-label={`Next image, currently showing image ${currentImageIndex + 1} of ${product.images.length}`}
+                    >
+                      <ChevronRight className="h-6 w-6" aria-hidden="true" />
+                    </button>
+                  </>
+                )}
+
+                {/* Badges */}
+                {product.badges.length > 0 && (
+                  <div className="absolute top-4 left-4 flex flex-col gap-2">
+                    {product.badges.map((badge) => (
+                      <Badge key={badge} badge={badge} />
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Thumbnail images */}
+              {product.images.length > 1 && (
+                <div className="flex gap-3 overflow-x-auto pb-2" role="tablist" aria-label="Product image thumbnails">
+                  {product.images.map((image, index) => (
+                    <button
+                      key={image.id}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={cn(
+                        "relative w-20 h-20 flex-shrink-0 border-2 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal",
+                        currentImageIndex === index
+                          ? "border-ember"
+                          : "border-smoke hover:border-steel-grey"
+                      )}
+                      role="tab"
+                      aria-selected={currentImageIndex === index}
+                      aria-label={`View image ${index + 1}: ${image.alt}`}
+                    >
+                      <Image
+                        src={image.url}
+                        alt=""
+                        fill
+                        sizes="80px"
+                        loading="lazy"
+                        className="object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Product info */}
+            <div>
+              {/* Title and rating */}
+              <h1 className="font-display text-4xl lg:text-5xl text-white-hot mb-2">
+                {product.title}
+              </h1>
+              <p className="text-lg text-stone mb-4">{product.subtitle}</p>
+
+              <div className="flex items-center gap-4 mb-6">
+                <StarRating
+                  rating={product.reviewSummary.ratingAvg}
+                  count={product.reviewSummary.ratingCount}
+                  size="md"
+                />
+                <span className="text-sm text-stone">
+                  {product.reviewSummary.ratingCount} reviews
+                </span>
+              </div>
+
+              {/* Price */}
+              <div className="mb-6">
+                <div className="flex items-baseline gap-3">
+                  <span className="text-3xl font-bold text-white-hot">
+                    {formatPrice(selectedVariant?.price || 0)}
+                  </span>
+                  {isOnSale && (
+                    <>
+                      <span className="text-xl text-stone line-through">
+                        {formatPrice(selectedVariant?.compareAtPrice || 0)}
+                      </span>
+                      <span className="px-2 py-0.5 bg-ember text-white-hot text-sm font-bold">
+                        SAVE {formatPrice(savingsAmount)}
+                      </span>
+                    </>
+                  )}
+                </div>
+                {product.variants.length > 1 && (
+                  <p className="text-sm text-stone mt-1">
+                    Starting from {formatPrice(product.variants[0].price)}
+                  </p>
+                )}
+              </div>
+
+              {/* Variant selector */}
+              {product.variants.length > 1 && (
+                <fieldset className="mb-6">
+                  <legend className="block text-sm font-medium text-white-hot mb-3">
+                    Size: {selectedVariant?.name}
+                  </legend>
+                  <div className="flex flex-wrap gap-3" role="radiogroup" aria-label="Select size">
+                    {product.variants.map((variant) => (
+                      <button
+                        key={variant.id}
+                        onClick={() => setSelectedVariant(variant)}
+                        className={cn(
+                          "px-4 py-2 border text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal",
+                          selectedVariant?.id === variant.id
+                            ? "border-ember bg-ember text-white-hot"
+                            : "border-steel-grey text-stone hover:border-white-hot hover:text-white-hot"
+                        )}
+                        role="radio"
+                        aria-checked={selectedVariant?.id === variant.id}
+                        aria-label={`${variant.name} - ${formatPrice(variant.price)}`}
+                      >
+                        {variant.name}
+                        <span className="block text-xs mt-0.5 opacity-80" aria-hidden="true">
+                          {formatPrice(variant.price)}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </fieldset>
+              )}
+
+              {/* Quantity selector */}
+              <div className="mb-6">
+                <label id="quantity-label" className="block text-sm font-medium text-white-hot mb-3">
+                  Quantity
+                </label>
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center border border-steel-grey" role="group" aria-labelledby="quantity-label">
+                    <button
+                      onClick={() =>
+                        setQuantity((prev) => Math.max(1, prev - 1))
+                      }
+                      className="p-3 text-stone hover:text-white-hot transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ember focus-visible:ring-inset"
+                      aria-label="Decrease quantity"
+                      disabled={quantity <= 1}
+                    >
+                      <Minus className="h-4 w-4" aria-hidden="true" />
+                    </button>
+                    <span className="w-12 text-center text-white-hot" aria-live="polite" aria-atomic="true">
+                      {quantity}
+                    </span>
+                    <button
+                      onClick={() => setQuantity((prev) => prev + 1)}
+                      className="p-3 text-stone hover:text-white-hot transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ember focus-visible:ring-inset"
+                      aria-label="Increase quantity"
+                    >
+                      <Plus className="h-4 w-4" aria-hidden="true" />
+                    </button>
+                  </div>
+                  <span className="text-sm text-stone" role="status" aria-live="polite">
+                    {selectedVariant && selectedVariant.inventoryQty > 0 ? (
+                      <span className="text-success">
+                        {selectedVariant.inventoryQty} in stock
+                      </span>
+                    ) : (
+                      <span className="text-ember">Out of stock</span>
+                    )}
+                  </span>
+                </div>
+              </div>
+
+              {/* Add to cart */}
+              <div className="space-y-3 mb-8">
+                <Button
+                  size="lg"
+                  className="w-full"
+                  onClick={handleAddToCart}
+                  disabled={
+                    !selectedVariant || selectedVariant.inventoryQty === 0
+                  }
+                >
+                  Chuck It In The Bakkie
+                </Button>
+              </div>
+
+              {/* Trust badges */}
+              <div className="grid grid-cols-2 gap-4 p-4 bg-soot border border-smoke">
+                <div className="flex items-center gap-3">
+                  <Truck className="h-5 w-5 text-ember flex-shrink-0" />
+                  <div>
+                    <p className="text-sm font-medium text-white-hot">
+                      Free Shipping
+                    </p>
+                    <p className="text-xs text-stone">Over R2,500</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Shield className="h-5 w-5 text-ember flex-shrink-0" />
+                  <div>
+                    <p className="text-sm font-medium text-white-hot">
+                      Built Tough
+                    </p>
+                    <p className="text-xs text-stone">Quality guaranteed</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Package className="h-5 w-5 text-ember flex-shrink-0" />
+                  <div>
+                    <p className="text-sm font-medium text-white-hot">
+                      Flat-Pack
+                    </p>
+                    <p className="text-xs text-stone">No tools needed</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Flame className="h-5 w-5 text-ember flex-shrink-0" />
+                  <div>
+                    <p className="text-sm font-medium text-white-hot">
+                      Laser-Cut
+                    </p>
+                    <p className="text-xs text-stone">Premium steel</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Product details */}
+      <section className="py-12 bg-soot border-y border-smoke">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="lg:grid lg:grid-cols-2 lg:gap-12">
+            {/* Description */}
+            <div className="mb-8 lg:mb-0">
+              <h2 className="font-display text-2xl text-white-hot mb-4">
+                About This Fire Pit
+              </h2>
+              <p className="text-stone leading-relaxed">{product.description}</p>
+            </div>
+
+            {/* Specs */}
+            <div>
+              <h2 className="font-display text-2xl text-white-hot mb-4">
+                Specifications
+              </h2>
+              <dl className="space-y-4">
+                <div className="flex items-center gap-4 py-3 border-b border-smoke">
+                  <dt className="flex items-center gap-2 text-stone">
+                    <Ruler className="h-4 w-4" />
+                    Dimensions
+                  </dt>
+                  <dd className="ml-auto text-white-hot">
+                    {selectedVariant
+                      ? `${selectedVariant.dimensions.width} x ${selectedVariant.dimensions.depth} x ${selectedVariant.dimensions.height}mm`
+                      : "Select size"}
+                  </dd>
+                </div>
+                <div className="flex items-center gap-4 py-3 border-b border-smoke">
+                  <dt className="flex items-center gap-2 text-stone">
+                    <Weight className="h-4 w-4" />
+                    Weight
+                  </dt>
+                  <dd className="ml-auto text-white-hot">
+                    {selectedVariant
+                      ? `${selectedVariant.weight}kg`
+                      : "Select size"}
+                  </dd>
+                </div>
+                <div className="flex items-center gap-4 py-3 border-b border-smoke">
+                  <dt className="text-stone">Material</dt>
+                  <dd className="ml-auto text-white-hot">{product.material}</dd>
+                </div>
+                <div className="flex items-center gap-4 py-3 border-b border-smoke">
+                  <dt className="text-stone">Finish</dt>
+                  <dd className="ml-auto text-white-hot">{product.finish}</dd>
+                </div>
+                <div className="flex items-center gap-4 py-3 border-b border-smoke">
+                  <dt className="text-stone">Capacity</dt>
+                  <dd className="ml-auto text-white-hot">
+                    {product.seatsMin}-{product.seatsMax} people
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Accordion */}
+      <section className="py-12 bg-charcoal" aria-labelledby="faq-heading">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 id="faq-heading" className="font-display text-3xl text-white-hot mb-8 text-center">
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-3" role="list">
+            {faqs.map((faq, index) => (
+              <div
+                key={index}
+                className="border border-smoke bg-soot overflow-hidden"
+                role="listitem"
+              >
+                <button
+                  onClick={() =>
+                    setOpenFaqIndex(openFaqIndex === index ? null : index)
+                  }
+                  className="w-full flex items-center justify-between p-4 text-left hover:bg-smoke/30 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ember focus-visible:ring-inset"
+                  aria-expanded={openFaqIndex === index}
+                  aria-controls={`faq-answer-${index}`}
+                  id={`faq-question-${index}`}
+                >
+                  <span className="font-medium text-white-hot pr-4">
+                    {faq.question}
+                  </span>
+                  <ChevronDown
+                    className={cn(
+                      "h-5 w-5 text-ember flex-shrink-0 transition-transform duration-200",
+                      openFaqIndex === index && "rotate-180"
+                    )}
+                    aria-hidden="true"
+                  />
+                </button>
+                <div
+                  id={`faq-answer-${index}`}
+                  role="region"
+                  aria-labelledby={`faq-question-${index}`}
+                  className={cn(
+                    "overflow-hidden transition-all duration-200",
+                    openFaqIndex === index ? "max-h-96" : "max-h-0"
+                  )}
+                  hidden={openFaqIndex !== index}
+                >
+                  <p className="px-4 pb-4 text-stone leading-relaxed">
+                    {faq.answer}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Related products */}
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="font-display text-3xl text-white-hot mb-8">
+            You May Also Like
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {relatedProducts.map((p) => (
+              <ProductCard key={p.id} product={p} onAddToCart={addItem} />
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

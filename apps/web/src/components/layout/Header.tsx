@@ -37,14 +37,17 @@ export function Header({ cartItemCount = 0, onCartClick }: HeaderProps) {
           <div className="flex lg:hidden">
             <button
               type="button"
-              className="p-2 text-stone hover:text-white-hot transition-colors"
+              className="p-2 text-stone hover:text-white-hot transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ember"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
-              <span className="sr-only">Open menu</span>
+              <span className="sr-only">{mobileMenuOpen ? "Close menu" : "Open menu"}</span>
               {mobileMenuOpen ? (
-                <X className="h-6 w-6" />
+                <X className="h-6 w-6" aria-hidden="true" />
               ) : (
-                <Menu className="h-6 w-6" />
+                <Menu className="h-6 w-6" aria-hidden="true" />
               )}
             </button>
           </div>
@@ -64,13 +67,13 @@ export function Header({ cartItemCount = 0, onCartClick }: HeaderProps) {
           </div>
 
           {/* Desktop navigation */}
-          <div className="hidden lg:flex lg:gap-x-8">
+          <nav className="hidden lg:flex lg:gap-x-8" aria-label="Main navigation">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
                 className={cn(
-                  "text-sm font-medium transition-colors uppercase tracking-wide",
+                  "text-sm font-medium transition-colors uppercase tracking-wide focus:outline-none focus-visible:ring-2 focus-visible:ring-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal",
                   item.name === "Personalise"
                     ? "text-ember hover:text-flame"
                     : "text-stone hover:text-white-hot"
@@ -79,27 +82,29 @@ export function Header({ cartItemCount = 0, onCartClick }: HeaderProps) {
                 {item.name}
               </Link>
             ))}
-          </div>
+          </nav>
 
           {/* Right side - Search and Cart */}
           <div className="flex flex-1 items-center justify-end gap-4">
             <button
               type="button"
-              className="p-2 text-stone hover:text-white-hot transition-colors"
+              className="p-2 text-stone hover:text-white-hot transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ember"
+              aria-label="Search products"
             >
               <span className="sr-only">Search</span>
-              <Search className="h-5 w-5" />
+              <Search className="h-5 w-5" aria-hidden="true" />
             </button>
 
             <button
               type="button"
               onClick={onCartClick}
-              className="relative p-2 text-stone hover:text-white-hot transition-colors"
+              className="relative p-2 text-stone hover:text-white-hot transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ember"
+              aria-label={`Shopping cart${cartItemCount > 0 ? `, ${cartItemCount} items` : ''}`}
             >
-              <span className="sr-only">Cart</span>
-              <ShoppingBag className="h-5 w-5" />
+              <span className="sr-only">Cart{cartItemCount > 0 && `, ${cartItemCount} items`}</span>
+              <ShoppingBag className="h-5 w-5" aria-hidden="true" />
               {cartItemCount > 0 && (
-                <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-ember text-xs font-bold text-white-hot flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-ember text-xs font-bold text-white-hot flex items-center justify-center" aria-hidden="true">
                   {cartItemCount}
                 </span>
               )}
@@ -108,30 +113,35 @@ export function Header({ cartItemCount = 0, onCartClick }: HeaderProps) {
         </div>
 
         {/* Mobile menu */}
-        <div
+        <nav
+          id="mobile-menu"
           className={cn(
             "lg:hidden overflow-hidden transition-all duration-300",
             mobileMenuOpen ? "max-h-64 pb-4" : "max-h-0"
           )}
+          aria-label="Mobile navigation"
+          aria-hidden={!mobileMenuOpen}
         >
-          <div className="space-y-1 pt-2">
+          <div className="space-y-1 pt-2" role="menu">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={cn(
-                  "block py-3 text-base font-medium transition-colors uppercase tracking-wide border-b border-smoke last:border-0",
+                  "block py-3 text-base font-medium transition-colors uppercase tracking-wide border-b border-smoke last:border-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-ember focus-visible:ring-inset",
                   item.name === "Personalise"
                     ? "text-ember hover:text-flame"
                     : "text-stone hover:text-white-hot"
                 )}
+                role="menuitem"
+                tabIndex={mobileMenuOpen ? 0 : -1}
               >
                 {item.name}
               </Link>
             ))}
           </div>
-        </div>
+        </nav>
       </nav>
     </header>
   );

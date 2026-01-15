@@ -34,6 +34,26 @@ from .upload import (
     DXFValidationResult,
     UploadErrorResponse,
 )
+from .admin import (
+    ProductCreate,
+    ProductUpdate,
+    ProductResponse,
+    VariantCreate,
+    VariantUpdate,
+    ProductImageCreate,
+    ReviewSummaryCreate,
+    CollectionCreate,
+    CollectionUpdate,
+    CollectionResponse,
+    PromoBlockCreate,
+    PromoBlockUpdate,
+    PromoBlockResponse,
+    OrderStatusUpdate,
+    OrderAdminResponse,
+    OrderListResponse,
+    OrderItemResponse as AdminOrderItemResponse,
+    MessageResponse,
+)
 
 __all__ = [
     # Product schemas
@@ -66,4 +86,23 @@ __all__ = [
     "UploadDesignResponse",
     "DXFValidationResult",
     "UploadErrorResponse",
+    # Admin schemas
+    "ProductCreate",
+    "ProductUpdate",
+    "ProductResponse",
+    "VariantCreate",
+    "VariantUpdate",
+    "ProductImageCreate",
+    "ReviewSummaryCreate",
+    "CollectionCreate",
+    "CollectionUpdate",
+    "CollectionResponse",
+    "PromoBlockCreate",
+    "PromoBlockUpdate",
+    "PromoBlockResponse",
+    "OrderStatusUpdate",
+    "OrderAdminResponse",
+    "OrderListResponse",
+    "AdminOrderItemResponse",
+    "MessageResponse",
 ]

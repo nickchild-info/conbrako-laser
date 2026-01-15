@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { X, Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/lib/cart-context";
@@ -12,6 +13,7 @@ import { Button } from "@/components/ui";
 const FREE_SHIPPING_THRESHOLD = 2500;
 
 export function CartDrawer() {
+  const router = useRouter();
   const {
     items,
     subtotal,
@@ -48,6 +50,12 @@ export function CartDrawer() {
       ? "You qualify for FREE shipping!"
       : `Add ${formatPrice(FREE_SHIPPING_THRESHOLD - subtotal)} more for FREE shipping`;
 
+  // Handle checkout - redirect to cart page for full checkout flow
+  const handleCheckout = () => {
+    closeCart();
+    router.push("/cart");
+  };
+
   return (
     <>
       {/* Backdrop */}
@@ -72,23 +80,30 @@ export function CartDrawer() {
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-smoke">
-          <h2 className="font-display text-xl text-white-hot flex items-center gap-2">
-            <ShoppingBag className="h-5 w-5" />
+          <h2 id="cart-drawer-title" className="font-display text-xl text-white-hot flex items-center gap-2">
+            <ShoppingBag className="h-5 w-5" aria-hidden="true" />
             Your Cart ({itemCount})
           </h2>
           <button
             onClick={closeCart}
-            className="p-2 text-stone hover:text-white-hot transition-colors"
+            className="p-2 text-stone hover:text-white-hot transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ember"
             aria-label="Close cart"
           >
-            <X className="h-5 w-5" />
+            <X className="h-5 w-5" aria-hidden="true" />
           </button>
         </div>
 
         {/* Free shipping progress */}
         <div className="p-4 bg-charcoal border-b border-smoke">
-          <p className="text-sm text-stone mb-2">{shippingMessage}</p>
-          <div className="h-2 bg-smoke rounded-full overflow-hidden">
+          <p id="shipping-progress-label" className="text-sm text-stone mb-2">{shippingMessage}</p>
+          <div
+            className="h-2 bg-smoke rounded-full overflow-hidden"
+            role="progressbar"
+            aria-valuenow={Math.min(subtotal, FREE_SHIPPING_THRESHOLD)}
+            aria-valuemin={0}
+            aria-valuemax={FREE_SHIPPING_THRESHOLD}
+            aria-labelledby="shipping-progress-label"
+          >
             <div
               className="h-full bg-ember transition-all duration-300"
               style={{
@@ -104,19 +119,20 @@ export function CartDrawer() {
         {/* Cart items */}
         <div className="flex-1 overflow-y-auto p-4">
           {items.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-full text-center">
-              <ShoppingBag className="h-16 w-16 text-steel-grey mb-4" />
+            <div className="flex flex-col items-center justify-center h-full text-center" role="status">
+              <ShoppingBag className="h-16 w-16 text-steel-grey mb-4" aria-hidden="true" />
               <p className="text-stone mb-4">Your cart is empty</p>
               <Button variant="primary" onClick={closeCart}>
                 Start Shopping
               </Button>
             </div>
           ) : (
-            <ul className="space-y-4">
+            <ul className="space-y-4" aria-label="Cart items">
               {items.map((item) => (
                 <li
                   key={item.variantId}
                   className="flex gap-4 p-3 bg-charcoal border border-smoke"
+                  aria-label={`${item.product.title} - ${item.variant.name}, quantity ${item.quantity}`}
                 >
                   {/* Product image */}
                   <div className="relative w-20 h-20 flex-shrink-0 bg-smoke">
@@ -150,35 +166,36 @@ export function CartDrawer() {
 
                     {/* Quantity controls */}
                     <div className="flex items-center gap-2 mt-2">
-                      <div className="flex items-center border border-steel-grey">
+                      <div className="flex items-center border border-steel-grey" role="group" aria-label={`Quantity for ${item.product.title}`}>
                         <button
                           onClick={() =>
                             updateQuantity(item.variantId, item.quantity - 1)
                           }
-                          className="p-1 text-stone hover:text-white-hot transition-colors"
-                          aria-label="Decrease quantity"
+                          className="p-1 text-stone hover:text-white-hot transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ember"
+                          aria-label={`Decrease quantity of ${item.product.title}`}
+                          disabled={item.quantity <= 1}
                         >
-                          <Minus className="h-4 w-4" />
+                          <Minus className="h-4 w-4" aria-hidden="true" />
                         </button>
-                        <span className="w-8 text-center text-sm text-white-hot">
+                        <span className="w-8 text-center text-sm text-white-hot" aria-live="polite" aria-atomic="true">
                           {item.quantity}
                         </span>
                         <button
                           onClick={() =>
                             updateQuantity(item.variantId, item.quantity + 1)
                           }
-                          className="p-1 text-stone hover:text-white-hot transition-colors"
-                          aria-label="Increase quantity"
+                          className="p-1 text-stone hover:text-white-hot transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ember"
+                          aria-label={`Increase quantity of ${item.product.title}`}
                         >
-                          <Plus className="h-4 w-4" />
+                          <Plus className="h-4 w-4" aria-hidden="true" />
                         </button>
                       </div>
                       <button
                         onClick={() => removeItem(item.variantId)}
-                        className="p-1 text-stone hover:text-ember transition-colors"
-                        aria-label="Remove item"
+                        className="p-1 text-stone hover:text-ember transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ember"
+                        aria-label={`Remove ${item.product.title} from cart`}
                       >
-                        <Trash2 className="h-4 w-4" />
+                        <Trash2 className="h-4 w-4" aria-hidden="true" />
                       </button>
                     </div>
                   </div>
@@ -203,7 +220,12 @@ export function CartDrawer() {
             </p>
 
             {/* Checkout button */}
-            <Button variant="primary" size="lg" className="w-full">
+            <Button
+              variant="primary"
+              size="lg"
+              className="w-full"
+              onClick={handleCheckout}
+            >
               Chuck It In The Bakkie
             </Button>
 

@@ -13,7 +13,7 @@ const footerLinks = {
     { name: "Assembly Guide", href: "/pages/assembly" },
     { name: "Shipping & Delivery", href: "/pages/shipping" },
     { name: "Returns & Warranty", href: "/pages/returns" },
-    { name: "FAQs", href: "/pages/faqs" },
+    { name: "FAQs", href: "/pages/faq" },
   ],
   company: [
     { name: "Our Story", href: "/pages/about" },
@@ -28,7 +28,7 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="bg-soot border-t border-smoke">
+    <footer className="bg-soot border-t border-smoke" role="contentinfo" aria-label="Site footer">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Main footer content */}
         <div className="py-12 lg:py-16">
@@ -70,25 +70,25 @@ export function Footer() {
             </div>
 
             {/* Shop links */}
-            <div>
-              <h3 className="font-display text-lg text-white-hot mb-4">Shop</h3>
+            <nav aria-labelledby="footer-shop-heading">
+              <h3 id="footer-shop-heading" className="font-display text-lg text-white-hot mb-4">Shop</h3>
               <ul className="space-y-3">
                 {footerLinks.shop.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-sm text-stone hover:text-white-hot transition-colors"
+                      className="text-sm text-stone hover:text-white-hot transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ember"
                     >
                       {link.name}
                     </Link>
                   </li>
                 ))}
               </ul>
-            </div>
+            </nav>
 
             {/* Support links */}
-            <div>
-              <h3 className="font-display text-lg text-white-hot mb-4">
+            <nav aria-labelledby="footer-support-heading">
+              <h3 id="footer-support-heading" className="font-display text-lg text-white-hot mb-4">
                 Support
               </h3>
               <ul className="space-y-3">
@@ -96,18 +96,18 @@ export function Footer() {
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-sm text-stone hover:text-white-hot transition-colors"
+                      className="text-sm text-stone hover:text-white-hot transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ember"
                     >
                       {link.name}
                     </Link>
                   </li>
                 ))}
               </ul>
-            </div>
+            </nav>
 
             {/* Company links */}
-            <div>
-              <h3 className="font-display text-lg text-white-hot mb-4">
+            <nav aria-labelledby="footer-company-heading">
+              <h3 id="footer-company-heading" className="font-display text-lg text-white-hot mb-4">
                 Company
               </h3>
               <ul className="space-y-3">
@@ -115,32 +115,38 @@ export function Footer() {
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-sm text-stone hover:text-white-hot transition-colors"
+                      className="text-sm text-stone hover:text-white-hot transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ember"
                     >
                       {link.name}
                     </Link>
                   </li>
                 ))}
               </ul>
-            </div>
+            </nav>
 
             {/* Newsletter */}
             <div className="col-span-2 lg:col-span-1">
-              <h3 className="font-display text-lg text-white-hot mb-4">
+              <h3 id="newsletter-heading" className="font-display text-lg text-white-hot mb-4">
                 Stay In The Loop
               </h3>
               <p className="text-sm text-stone mb-4">
                 New products, deals, and braai tips. No spam, just fire.
               </p>
-              <form className="flex flex-col gap-3">
+              <form className="flex flex-col gap-3" aria-labelledby="newsletter-heading">
+                <label htmlFor="newsletter-email" className="sr-only">Email address</label>
                 <input
+                  id="newsletter-email"
                   type="email"
                   placeholder="your@email.com"
-                  className="w-full px-4 py-2 bg-charcoal border border-steel-grey text-white-hot placeholder:text-ash text-sm focus:outline-none focus:border-ember transition-colors"
+                  required
+                  autoComplete="email"
+                  className="w-full px-4 py-2 bg-charcoal border border-steel-grey text-white-hot placeholder:text-ash text-sm focus:outline-none focus:ring-2 focus:ring-ember focus:border-ember transition-colors"
+                  aria-describedby="newsletter-description"
                 />
+                <span id="newsletter-description" className="sr-only">Enter your email to subscribe to our newsletter</span>
                 <button
                   type="submit"
-                  className="w-full px-4 py-2 bg-ember hover:bg-flame text-white-hot font-medium text-sm uppercase tracking-wide transition-colors"
+                  className="w-full px-4 py-2 bg-ember hover:bg-flame text-white-hot font-medium text-sm uppercase tracking-wide transition-colors focus:outline-none focus:ring-2 focus:ring-white-hot focus:ring-offset-2 focus:ring-offset-soot"
                 >
                   Subscribe
                 </button>

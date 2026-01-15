@@ -16,6 +16,8 @@ export function PromoTile({ promo }: PromoTileProps) {
           src={promo.imageUrl}
           alt=""
           fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          loading="lazy"
           className="object-cover opacity-30 group-hover:opacity-40 transition-opacity"
         />
       )}

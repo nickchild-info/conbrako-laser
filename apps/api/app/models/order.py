@@ -22,11 +22,18 @@ class Order(Base):
     __tablename__ = "orders"
 
     id = Column(Integer, primary_key=True, index=True)
-    stripe_session_id = Column(String(255), unique=True, nullable=True, index=True)
+    stripe_session_id = Column(String(255), unique=True, nullable=True, index=True)  # Legacy Stripe
+    payfast_payment_id = Column(String(255), unique=True, nullable=True, index=True)  # Payfast payment ID
     status = Column(Enum(OrderStatus), default=OrderStatus.PENDING, nullable=False)
-    customer_email = Column(String(255), nullable=False, index=True)
+    customer_email = Column(String(255), nullable=True, index=True)  # Made nullable for pending orders
+    customer_name = Column(String(255), nullable=True)
+    customer_phone = Column(String(50), nullable=True)
     total = Column(Numeric(10, 2), nullable=False)
+    shipping_cost = Column(Numeric(10, 2), nullable=True, default=0)
+    shipping_service = Column(String(50), nullable=True)  # standard, express, overnight
     shipping_address = Column(Text, nullable=True)  # JSON-encoded address
+    waybill = Column(String(100), nullable=True, index=True)  # TCG waybill number
+    tracking_url = Column(String(500), nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 

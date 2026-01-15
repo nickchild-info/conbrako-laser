@@ -2,7 +2,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .core.config import get_settings
-from .routers import health, products, collections, design_templates, cart, uploads, webhooks
+from .routers import health, products, collections, design_templates, cart, uploads, webhooks, admin, shipping
 
 settings = get_settings()
 
@@ -32,6 +32,8 @@ app.include_router(design_templates.router, prefix=settings.api_v1_prefix)
 app.include_router(cart.router, prefix=settings.api_v1_prefix)
 app.include_router(uploads.router, prefix=settings.api_v1_prefix)
 app.include_router(webhooks.router, prefix=settings.api_v1_prefix)
+app.include_router(admin.router, prefix=settings.api_v1_prefix)
+app.include_router(shipping.router, prefix=settings.api_v1_prefix)
 
 
 @app.get("/")

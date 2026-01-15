@@ -1,0 +1,55 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Documentation
+*.md
+docs/
+
+# Local environment
+.env
+.env.local
+.env.*.local
+
+# Build artifacts
+*.egg-info/
+dist/
+build/
+
+# Docker
+Dockerfile
+docker-compose*.yml
+.docker/
+
+# Alembic versions (keep in production)
+# alembic/versions/
+
+# Uploads (development only)
+uploads/
+
+# Tests
+tests/
+pytest.ini
