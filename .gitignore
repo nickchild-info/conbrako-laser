@@ -1,0 +1,26 @@
+# Cache directories
+.cache/
+.playwright-mcp/
+
+# Database files
+*.db
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
