@@ -229,3 +229,19 @@ class MessageResponse(BaseModel):
     """Generic message response."""
     message: str
     id: Optional[int] = None
+
+
+# ============================================
+# SQL Query Schemas
+# ============================================
+
+class SQLQueryRequest(BaseModel):
+    """Schema for SQL query request."""
+    query: str = Field(..., min_length=1, description="SQL SELECT query to execute")
+
+
+class SQLQueryResponse(BaseModel):
+    """Schema for SQL query response."""
+    columns: list[str]
+    rows: list[list]
+    row_count: int

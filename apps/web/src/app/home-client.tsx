@@ -7,9 +7,8 @@ import {
   ArrowRight,
   Truck,
   Shield,
-  Wrench,
   Flame,
-  Palette,
+  Package,
   ChevronLeft,
   ChevronRight,
   Star,
@@ -31,9 +30,9 @@ const features = [
     description: "Intricate designs cut from premium steel",
   },
   {
-    icon: Wrench,
-    title: "Tool-Free Assembly",
-    description: "Flat-pack to fire pit in under 5 minutes",
+    icon: Package,
+    title: "Flat-Pack Design",
+    description: "Assemble in under 5 minutes, no tools",
   },
   {
     icon: Truck,
@@ -53,7 +52,7 @@ const testimonials = [
     name: "Johan van der Merwe",
     location: "Pretoria, Gauteng",
     rating: 5,
-    text: "Best braai accessory I've ever bought. The Medium KoosDoos is perfect for our family gatherings. Assembled it in 3 minutes flat and the heat output is incredible. Already planning to order another for the farm.",
+    text: "Best braai accessory I've ever bought. The Medium KoosDoos is perfect for our family gatherings. Assembled it in 3 minutes flat and the heat output is incredible.",
     product: "KoosDoos Medium",
   },
   {
@@ -69,24 +68,8 @@ const testimonials = [
     name: "Mike Thompson",
     location: "Durban, KZN",
     rating: 5,
-    text: "Bought the XL for our rugby club. It's a beast. We've had it going for 6 hours straight on game days and it just keeps delivering. Tough as nails and looks amazing with the rust patina developing.",
+    text: "Bought the XL for our rugby club. It's a beast. We've had it going for 6 hours straight on game days and it just keeps delivering. Tough as nails.",
     product: "KoosDoos XL",
-  },
-  {
-    id: 4,
-    name: "Annika Pretorius",
-    location: "Bloemfontein, Free State",
-    rating: 5,
-    text: "Finally a fire pit that doesn't rust through after one winter! Two years in and our KoosDoos still looks and performs like new. The flat-pack design also made it easy to take camping.",
-    product: "KoosDoos Large",
-  },
-  {
-    id: 5,
-    name: "David Nkosi",
-    location: "Johannesburg, Gauteng",
-    rating: 5,
-    text: "I was skeptical about the price but this thing is worth every cent. The steel is thick, the design is clever, and it looks way better than those cheap imports. Should've bought one years ago.",
-    product: "KoosDoos Medium",
   },
 ];
 
@@ -105,9 +88,9 @@ export function HomePageClient({ featuredProducts }: HomePageClientProps) {
   };
 
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+    <div className="min-h-screen">
+      {/* Hero Section - Dramatic full-viewport */}
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         {/* Background with hero image */}
         <div className="absolute inset-0">
           <Image
@@ -118,65 +101,95 @@ export function HomePageClient({ featuredProducts }: HomePageClientProps) {
             className="object-cover"
             sizes="100vw"
           />
-          {/* Dark overlay for text readability */}
-          <div className="absolute inset-0 bg-charcoal/70" />
-          {/* Decorative fire gradient */}
-          <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-ember/20 to-transparent" />
+          {/* Dramatic gradient overlays */}
+          <div className="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-charcoal/50" />
+          {/* Fire glow at bottom */}
+          <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-ember/20 to-transparent" />
         </div>
 
+        {/* Noise texture */}
+        <div className="absolute inset-0 noise-overlay pointer-events-none" />
+
         {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-          <span className="inline-block px-4 py-1 bg-ember text-white-hot text-sm font-bold uppercase tracking-wider mb-6">
-            Premium Fire Pits
-          </span>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="max-w-3xl">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-ember/20 border border-ember/50 text-ember text-sm font-bold uppercase tracking-wider mb-8 slide-up">
+              <Flame className="h-4 w-4" />
+              South African Made
+            </div>
 
-          <h1 className="font-display text-5xl sm:text-6xl lg:text-8xl text-white-hot mb-6 leading-none">
-            Built Tough.
-            <br />
-            <span className="text-ember">Burns Harder.</span>
-          </h1>
+            {/* Main headline */}
+            <h1 className="font-display text-6xl sm:text-7xl lg:text-8xl text-white-hot mb-6 slide-up slide-up-delay-1 leading-none">
+              Built Tough.
+              <br />
+              <span className="text-fire-gradient">Burns Harder.</span>
+            </h1>
 
-          <p className="text-xl sm:text-2xl text-stone max-w-2xl mx-auto mb-10">
-            Laser-cut steel fire pits. Flat-pack design. Rugged construction.
-            <span className="block mt-2 text-sand font-medium">
-              Not for sissies.
-            </span>
-          </p>
+            {/* Subheadline */}
+            <p className="text-xl sm:text-2xl text-stone max-w-xl mb-10 slide-up slide-up-delay-2">
+              Laser-cut steel fire pits. Flat-pack design. Rugged construction.
+              <span className="block mt-2 text-sand font-medium">
+                Not for sissies.
+              </span>
+            </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/collections/fire-pits">
-              <Button size="lg" className="w-full sm:w-auto">
-                Shop Fire Pits
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-            <Link href="/personalise">
-              <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                Personalise Yours
-              </Button>
-            </Link>
+            {/* CTA buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 slide-up slide-up-delay-3">
+              <Link href="/collections/fire-pits">
+                <Button size="lg" className="w-full sm:w-auto">
+                  Shop Fire Pits
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+              <Link href="/personalise">
+                <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                  <Flame className="mr-2 h-5 w-5" />
+                  Personalise Yours
+                </Button>
+              </Link>
+            </div>
+
+            {/* Trust indicators */}
+            <div className="flex flex-wrap gap-8 mt-12 pt-8 border-t border-smoke/50 slide-up slide-up-delay-4">
+              <div className="flex items-center gap-2 text-stone">
+                <Truck className="h-5 w-5 text-ember" />
+                <span className="text-sm">Free shipping over R2,500</span>
+              </div>
+              <div className="flex items-center gap-2 text-stone">
+                <Shield className="h-5 w-5 text-ember" />
+                <span className="text-sm">2 Year warranty</span>
+              </div>
+              <div className="flex items-center gap-2 text-stone">
+                <Package className="h-5 w-5 text-ember" />
+                <span className="text-sm">5 min assembly</span>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-steel-grey rounded-full flex items-start justify-center p-2">
-            <div className="w-1.5 h-3 bg-ember rounded-full" />
-          </div>
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-stone animate-bounce">
+          <span className="text-xs uppercase tracking-wider">Scroll</span>
+          <ChevronRight className="h-4 w-4 rotate-90" />
         </div>
       </section>
 
-      {/* Features Bar */}
-      <section className="bg-soot border-y border-smoke">
+      {/* Features Bar - Industrial style */}
+      <section className="bg-soot border-y-2 border-smoke relative">
+        <div className="absolute top-0 left-0 right-0 h-1 fire-gradient" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-smoke">
+          <div className="grid grid-cols-2 lg:grid-cols-4">
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className="py-8 px-4 text-center first:pl-0 last:pr-0"
+                className="py-10 px-6 text-center border-r border-smoke last:border-r-0 group hover:bg-charcoal/50 transition-colors"
               >
-                <feature.icon className="h-8 w-8 text-ember mx-auto mb-3" />
-                <h3 className="font-display text-lg text-white-hot mb-1">
+                <div className="w-14 h-14 mx-auto mb-4 bg-ember/10 border border-ember/30 flex items-center justify-center group-hover:bg-ember group-hover:border-ember transition-all">
+                  <feature.icon className="h-7 w-7 text-ember group-hover:text-white-hot transition-colors" />
+                </div>
+                <h3 className="font-display text-lg text-white-hot mb-2">
                   {feature.title}
                 </h3>
                 <p className="text-sm text-stone">{feature.description}</p>
@@ -186,28 +199,30 @@ export function HomePageClient({ featuredProducts }: HomePageClientProps) {
         </div>
       </section>
 
-      {/* Featured Products - Size Range */}
-      <section className="py-16 lg:py-24">
+      {/* Featured Products */}
+      <section className="py-20 lg:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-end justify-between mb-10">
+          {/* Section header */}
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
             <div>
-              <span className="text-ember text-sm font-bold uppercase tracking-wider">
+              <span className="text-ember text-sm font-bold uppercase tracking-wider mb-3 block">
                 Choose Your Size
               </span>
-              <h2 className="font-display text-4xl sm:text-5xl text-white-hot mt-2">
+              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white-hot">
                 Fire Pits
               </h2>
             </div>
             <Link
               href="/collections/fire-pits"
-              className="hidden sm:flex items-center gap-2 text-stone hover:text-white-hot transition-colors text-sm uppercase tracking-wide"
+              className="group inline-flex items-center gap-2 text-stone hover:text-ember transition-colors font-bold uppercase tracking-wider text-sm"
             >
-              View All
-              <ArrowRight className="h-4 w-4" />
+              View All Products
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Products grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 stagger-children">
             {featuredProducts.map((product) => (
               <ProductCard
                 key={product.id}
@@ -217,7 +232,7 @@ export function HomePageClient({ featuredProducts }: HomePageClientProps) {
             ))}
           </div>
 
-          <div className="mt-8 text-center sm:hidden">
+          <div className="mt-10 text-center lg:hidden">
             <Link href="/collections/fire-pits">
               <Button variant="secondary">
                 View All Products
@@ -228,20 +243,24 @@ export function HomePageClient({ featuredProducts }: HomePageClientProps) {
         </div>
       </section>
 
-      {/* Personalise Section */}
-      <section className="py-16 lg:py-24 bg-soot">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      {/* Personalise Section - Bold asymmetric */}
+      <section className="py-20 lg:py-28 bg-soot relative overflow-hidden">
+        {/* Diagonal accent */}
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-ember/5 transform skew-x-12 translate-x-1/4" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="order-2 lg:order-1">
-              <span className="text-ember text-sm font-bold uppercase tracking-wider">
+              <span className="inline-flex items-center gap-2 text-ember text-sm font-bold uppercase tracking-wider mb-6">
+                <Flame className="h-4 w-4" />
                 Make It Yours
               </span>
-              <h2 className="font-display text-4xl sm:text-5xl text-white-hot mt-2 mb-6">
+              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white-hot mb-6">
                 Personalised
                 <br />
-                Fire Pits
+                <span className="text-fire-gradient">Fire Pits</span>
               </h2>
-              <div className="space-y-4 text-stone">
+              <div className="space-y-4 text-stone text-lg leading-relaxed">
                 <p>
                   Create a one-of-a-kind fire pit with your own custom design.
                   Upload your logo, family crest, or choose from our library of
@@ -249,58 +268,52 @@ export function HomePageClient({ featuredProducts }: HomePageClientProps) {
                 </p>
                 <p>
                   Perfect for businesses, sports clubs, game lodges, or as a
-                  truly unique gift. Our team reviews every design to ensure
-                  perfect laser-cut results.
+                  truly unique gift.
                 </p>
                 <p className="text-sand font-medium">
                   Your design. Your fire pit. Your story.
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-4 mt-8">
+              <div className="flex flex-col sm:flex-row gap-4 mt-10">
                 <Link href="/personalise">
-                  <Button>
-                    <Palette className="mr-2 h-4 w-4" />
+                  <Button size="lg">
                     Start Designing
+                    <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
                 <Link href="/personalise#templates">
-                  <Button variant="secondary">Browse Templates</Button>
+                  <Button variant="secondary" size="lg">
+                    Browse Templates
+                  </Button>
                 </Link>
               </div>
             </div>
             <div className="order-1 lg:order-2 relative">
               <div className="grid grid-cols-2 gap-4">
-                <div className="aspect-square bg-charcoal border border-smoke flex items-center justify-center">
+                <div className="aspect-square bg-charcoal border-2 border-smoke hover:border-ember transition-colors flex items-center justify-center group">
                   <div className="text-center p-4">
-                    <div className="w-16 h-16 mx-auto mb-2 border-2 border-ember rounded-full flex items-center justify-center">
-                      <span className="font-display text-2xl text-ember">
-                        ?
-                      </span>
+                    <div className="w-20 h-20 mx-auto mb-3 border-2 border-ember/50 group-hover:border-ember flex items-center justify-center transition-colors">
+                      <span className="font-display text-3xl text-ember">?</span>
                     </div>
-                    <span className="text-xs text-stone">Your Logo Here</span>
+                    <span className="text-sm text-stone">Your Logo Here</span>
                   </div>
                 </div>
-                <div className="aspect-square bg-charcoal border border-smoke flex items-center justify-center">
-                  <Flame className="h-16 w-16 text-ember/50" />
+                <div className="aspect-square bg-charcoal border-2 border-smoke hover:border-ember transition-colors flex items-center justify-center">
+                  <Flame className="h-20 w-20 text-ember/40 flame-flicker" />
                 </div>
-                <div className="aspect-square bg-charcoal border border-smoke flex items-center justify-center">
-                  <span className="font-display text-3xl text-steel-grey">
-                    RSA
-                  </span>
+                <div className="aspect-square bg-charcoal border-2 border-smoke hover:border-ember transition-colors flex items-center justify-center">
+                  <span className="font-display text-4xl text-steel-grey">RSA</span>
                 </div>
-                <div className="aspect-square bg-charcoal border border-smoke flex items-center justify-center">
+                <div className="aspect-square bg-charcoal border-2 border-smoke hover:border-ember transition-colors flex items-center justify-center">
                   <div className="text-center">
-                    <span className="font-display text-xl text-stone">
-                      SMITH
-                    </span>
-                    <span className="block text-xs text-ash">Family</span>
+                    <span className="font-display text-2xl text-stone">SMITH</span>
+                    <span className="block text-xs text-ash mt-1">Family</span>
                   </div>
                 </div>
               </div>
-              <div className="absolute -bottom-4 -right-4 px-4 py-2 bg-ember">
-                <span className="text-sm font-bold text-white-hot">
-                  FROM R2,999
-                </span>
+              {/* Price tag */}
+              <div className="absolute -bottom-4 -right-4 px-6 py-3 bg-ember fire-glow-subtle">
+                <span className="text-sm font-bold text-white-hot">FROM R2,999</span>
               </div>
             </div>
           </div>
@@ -308,19 +321,19 @@ export function HomePageClient({ featuredProducts }: HomePageClientProps) {
       </section>
 
       {/* Brand Story Section */}
-      <section className="py-16 lg:py-24">
+      <section className="py-20 lg:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <span className="text-ember text-sm font-bold uppercase tracking-wider">
+              <span className="text-ember text-sm font-bold uppercase tracking-wider mb-3 block">
                 Our Story
               </span>
-              <h2 className="font-display text-4xl sm:text-5xl text-white-hot mt-2 mb-6">
+              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white-hot mb-6">
                 Steel Guts.
                 <br />
-                Real Fire.
+                <span className="text-fire-gradient">Real Fire.</span>
               </h2>
-              <div className="space-y-4 text-stone">
+              <div className="space-y-4 text-stone text-lg leading-relaxed">
                 <p>
                   KoosDoos was born from a simple idea: fire pits should be as
                   tough as the people who use them. We&apos;re tired of flimsy
@@ -335,61 +348,72 @@ export function HomePageClient({ featuredProducts }: HomePageClientProps) {
                   From Pretoria with fire. Built to outlast you.
                 </p>
               </div>
-              <Link href="/pages/about" className="inline-block mt-8">
-                <Button variant="outline">
+              <Link href="/pages/about" className="inline-block mt-10">
+                <Button variant="outline" size="lg">
                   Read Our Story
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
             </div>
-            <div className="relative aspect-square bg-charcoal border border-smoke overflow-hidden">
-              <Image
-                src="/images/koosdoos-logo.png"
-                alt="KoosDoos Fire Pits"
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                loading="lazy"
-                className="object-contain p-12"
-              />
+            <div className="relative">
+              <div className="aspect-square bg-charcoal border-2 border-smoke overflow-hidden">
+                <Image
+                  src="/images/koosdoos-logo.png"
+                  alt="KoosDoos Fire Pits"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  loading="lazy"
+                  className="object-contain p-16"
+                />
+              </div>
+              {/* Corner accent */}
+              <div className="absolute bottom-0 right-0 w-0 h-0 border-l-[60px] border-l-transparent border-b-[60px] border-b-ember" />
             </div>
           </div>
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-16 lg:py-24 bg-soot">
+      <section className="py-20 lg:py-28 bg-soot">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <span className="text-ember text-sm font-bold uppercase tracking-wider">
-              What Our Customers Say
+          <div className="text-center mb-16">
+            <span className="text-ember text-sm font-bold uppercase tracking-wider mb-3 block">
+              What Customers Say
             </span>
-            <h2 className="font-display text-4xl sm:text-5xl text-white-hot mt-2">
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white-hot mb-4">
               Real Fire. Real People.
             </h2>
+            <div className="flex items-center justify-center gap-2 text-ember">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="h-6 w-6 fill-current" />
+              ))}
+              <span className="ml-2 text-white-hot font-bold">4.9/5</span>
+              <span className="text-stone">from 500+ reviews</span>
+            </div>
           </div>
 
           <div className="relative max-w-4xl mx-auto">
             {/* Testimonial Card */}
-            <div className="bg-charcoal border border-smoke p-8 lg:p-12">
-              <Quote className="h-10 w-10 text-ember/30 mb-6" />
+            <div className="bg-charcoal border-2 border-smoke p-10 lg:p-14">
+              <Quote className="h-12 w-12 text-ember/30 mb-8" />
 
-              <p className="text-lg lg:text-xl text-stone leading-relaxed mb-8">
-                {testimonials[testimonialIndex].text}
+              <p className="text-xl lg:text-2xl text-white-hot leading-relaxed mb-10">
+                &ldquo;{testimonials[testimonialIndex].text}&rdquo;
               </p>
 
-              <div className="flex items-center justify-between flex-wrap gap-4">
+              <div className="flex items-center justify-between flex-wrap gap-6">
                 <div>
-                  <div className="flex items-center gap-1 mb-2">
+                  <div className="flex items-center gap-1 mb-3">
                     {[...Array(testimonials[testimonialIndex].rating)].map(
                       (_, i) => (
                         <Star
                           key={i}
-                          className="h-4 w-4 fill-ember text-ember"
+                          className="h-5 w-5 fill-ember text-ember"
                         />
                       )
                     )}
                   </div>
-                  <p className="font-display text-lg text-white-hot">
+                  <p className="font-display text-xl text-white-hot">
                     {testimonials[testimonialIndex].name}
                   </p>
                   <p className="text-sm text-ash">
@@ -400,7 +424,7 @@ export function HomePageClient({ featuredProducts }: HomePageClientProps) {
                   <p className="text-xs text-ash uppercase tracking-wider mb-1">
                     Purchased
                   </p>
-                  <p className="text-sm text-ember font-medium">
+                  <p className="text-ember font-bold">
                     {testimonials[testimonialIndex].product}
                   </p>
                 </div>
@@ -408,24 +432,24 @@ export function HomePageClient({ featuredProducts }: HomePageClientProps) {
             </div>
 
             {/* Navigation */}
-            <div className="flex items-center justify-center gap-4 mt-8">
+            <div className="flex items-center justify-center gap-6 mt-10">
               <button
                 onClick={prevTestimonial}
-                className="p-3 border border-smoke hover:border-ember text-stone hover:text-white-hot transition-colors"
+                className="p-3 border-2 border-smoke hover:border-ember hover:bg-ember text-stone hover:text-white-hot transition-all"
                 aria-label="Previous testimonial"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
 
               {/* Dots */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
                 {testimonials.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setTestimonialIndex(index)}
-                    className={`w-2 h-2 rounded-full transition-colors ${
+                    className={`w-3 h-3 transition-all ${
                       index === testimonialIndex
-                        ? "bg-ember"
+                        ? "bg-ember scale-110"
                         : "bg-steel-grey hover:bg-stone"
                     }`}
                     aria-label={`Go to testimonial ${index + 1}`}
@@ -435,7 +459,7 @@ export function HomePageClient({ featuredProducts }: HomePageClientProps) {
 
               <button
                 onClick={nextTestimonial}
-                className="p-3 border border-smoke hover:border-ember text-stone hover:text-white-hot transition-colors"
+                className="p-3 border-2 border-smoke hover:border-ember hover:bg-ember text-stone hover:text-white-hot transition-all"
                 aria-label="Next testimonial"
               >
                 <ChevronRight className="h-5 w-5" />
@@ -443,27 +467,35 @@ export function HomePageClient({ featuredProducts }: HomePageClientProps) {
             </div>
 
             {/* Trust indicator */}
-            <p className="text-center text-sm text-ash mt-8">
+            <p className="text-center text-sm text-ash mt-10">
               Based on 500+ verified customer reviews
             </p>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 lg:py-24 bg-ember">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-display text-4xl sm:text-5xl text-white-hot mb-4">
+      {/* Final CTA Section */}
+      <section className="relative py-24 lg:py-32 overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0 fire-gradient" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ember/80 to-flame/80" />
+
+        {/* Noise texture */}
+        <div className="absolute inset-0 noise-overlay pointer-events-none opacity-50" />
+
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <Flame className="h-16 w-16 text-white-hot mx-auto mb-8 flame-flicker" />
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white-hot mb-6">
             Ready To Light It Up?
           </h2>
-          <p className="text-xl text-white-hot/80 mb-8">
+          <p className="text-xl text-white-hot/90 mb-10 max-w-2xl mx-auto">
             Join the KoosDoos family. Free shipping on orders over R2,500.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/collections/fire-pits">
               <Button
                 size="lg"
-                className="bg-charcoal hover:bg-soot text-white-hot"
+                className="bg-charcoal hover:bg-soot text-white-hot border-0"
               >
                 Shop Now
                 <ArrowRight className="ml-2 h-5 w-5" />

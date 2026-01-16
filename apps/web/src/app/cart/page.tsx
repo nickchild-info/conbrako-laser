@@ -18,6 +18,8 @@ import {
   User,
   ChevronDown,
   ChevronUp,
+  Home,
+  Check,
 } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
 import { formatPrice } from "@/data/products";
@@ -65,13 +67,20 @@ export default function CartPage() {
   const [customerLastName, setCustomerLastName] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
 
-  // Shipping
+  // Billing Address
+  const [billingAddress, setBillingAddress] = useState<CheckoutShippingAddress | null>(null);
+  const [isBillingAddressValid, setIsBillingAddressValid] = useState(false);
+  const [sameAsDelivery, setSameAsDelivery] = useState(true);
+
+  // Delivery/Shipping
   const [shippingAddress, setShippingAddress] = useState<CheckoutShippingAddress | null>(null);
   const [isAddressValid, setIsAddressValid] = useState(false);
   const [selectedShipping, setSelectedShipping] = useState<ShippingQuote | null>(null);
 
-  // UI state
-  const [expandedSection, setExpandedSection] = useState<string | null>("customer");
+  // UI state - multiple sections can be expanded
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(
+    () => new Set(["customer", "billing", "delivery"])
+  );
 
   // Calculated values
   const shippingCost = selectedShipping?.price ?? (subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : 150);
@@ -79,11 +88,54 @@ export default function CartPage() {
   const amountToFreeShipping = FREE_SHIPPING_THRESHOLD - subtotal;
 
   // Check if checkout is ready
+  const billingReady = sameAsDelivery || (isBillingAddressValid && billingAddress !== null);
   const isCheckoutReady =
     customerEmail.length > 0 &&
     customerFirstName.length > 0 &&
     isAddressValid &&
-    shippingAddress !== null;
+    shippingAddress !== null &&
+    billingReady;
+
+  // Load saved checkout info from localStorage on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("conbrako-checkout-info");
+      if (saved) {
+        const data = JSON.parse(saved);
+        if (data.email) setCustomerEmail(data.email);
+        if (data.firstName) setCustomerFirstName(data.firstName);
+        if (data.lastName) setCustomerLastName(data.lastName);
+        if (data.phone) setCustomerPhone(data.phone);
+        if (data.address) {
+          setShippingAddress(data.address);
+          setIsAddressValid(true);
+        }
+        if (data.billingAddress) {
+          setBillingAddress(data.billingAddress);
+          setIsBillingAddressValid(true);
+        }
+        if (typeof data.sameAsDelivery === 'boolean') {
+          setSameAsDelivery(data.sameAsDelivery);
+        }
+      }
+    } catch (e) {
+      // Ignore parse errors from corrupted localStorage
+    }
+  }, []);
+
+  // Save checkout info to localStorage when fields change
+  useEffect(() => {
+    const data = {
+      email: customerEmail,
+      firstName: customerFirstName,
+      lastName: customerLastName,
+      phone: customerPhone,
+      address: shippingAddress,
+      billingAddress: billingAddress,
+      sameAsDelivery: sameAsDelivery,
+    };
+    localStorage.setItem("conbrako-checkout-info", JSON.stringify(data));
+  }, [customerEmail, customerFirstName, customerLastName, customerPhone, shippingAddress, billingAddress, sameAsDelivery]);
 
   // Convert cart items to analytics items
   const getAnalyticsItems = (): AnalyticsItem[] => {
@@ -129,13 +181,21 @@ export default function CartPage() {
     []
   );
 
+  const handleBillingAddressChange = useCallback(
+    (address: CheckoutShippingAddress, isValid: boolean) => {
+      setBillingAddress(address);
+      setIsBillingAddressValid(isValid);
+    },
+    []
+  );
+
   const handleShippingSelect = useCallback((quote: ShippingQuote) => {
     setSelectedShipping(quote);
   }, []);
 
   const handleProceedToCheckout = () => {
     setCheckoutStep("checkout");
-    setExpandedSection("customer");
+    setExpandedSections(new Set(["customer", "billing", "delivery"]));
   };
 
   const handleBackToCart = () => {
@@ -198,7 +258,15 @@ export default function CartPage() {
   };
 
   const toggleSection = (section: string) => {
-    setExpandedSection(expandedSection === section ? null : section);
+    setExpandedSections((prev) => {
+      const next = new Set(prev);
+      if (next.has(section)) {
+        next.delete(section);
+      } else {
+        next.add(section);
+      }
+      return next;
+    });
   };
 
   // Validate email format
@@ -432,13 +500,13 @@ export default function CartPage() {
                           </span>
                         )}
                       </div>
-                      {expandedSection === "customer" ? (
+                      {expandedSections.has("customer") ? (
                         <ChevronUp className="h-5 w-5 text-stone" />
                       ) : (
                         <ChevronDown className="h-5 w-5 text-stone" />
                       )}
                     </button>
-                    {expandedSection === "customer" && (
+                    {expandedSections.has("customer") && (
                       <div className="p-4 pt-0 space-y-4 border-t border-smoke">
                         <div>
                           <label
@@ -522,10 +590,67 @@ export default function CartPage() {
                     )}
                   </div>
 
-                  {/* Shipping Address Section */}
+                  {/* Billing Address Section */}
                   <div className="bg-soot border border-smoke">
                     <button
-                      onClick={() => toggleSection("address")}
+                      onClick={() => toggleSection("billing")}
+                      className="w-full flex items-center justify-between p-4"
+                    >
+                      <div className="flex items-center gap-3">
+                        <Home className="h-5 w-5 text-ember" />
+                        <span className="font-display text-lg text-white-hot">
+                          Billing Address
+                        </span>
+                        {sameAsDelivery ? (
+                          <span className="text-sm text-stone">(Same as delivery)</span>
+                        ) : isBillingAddressValid && billingAddress ? (
+                          <span className="text-sm text-stone">
+                            ({billingAddress.suburb}, {billingAddress.city})
+                          </span>
+                        ) : null}
+                      </div>
+                      {expandedSections.has("billing") ? (
+                        <ChevronUp className="h-5 w-5 text-stone" />
+                      ) : (
+                        <ChevronDown className="h-5 w-5 text-stone" />
+                      )}
+                    </button>
+                    {expandedSections.has("billing") && (
+                      <div className="p-4 pt-0 border-t border-smoke">
+                        {/* Same as delivery checkbox */}
+                        <label className="flex items-center gap-3 mb-4 cursor-pointer group">
+                          <div
+                            className={`w-5 h-5 border-2 flex items-center justify-center transition-colors ${
+                              sameAsDelivery
+                                ? "bg-ember border-ember"
+                                : "border-steel-grey group-hover:border-ember"
+                            }`}
+                            onClick={() => setSameAsDelivery(!sameAsDelivery)}
+                          >
+                            {sameAsDelivery && <Check className="h-3.5 w-3.5 text-white" />}
+                          </div>
+                          <span className="text-stone group-hover:text-white-hot transition-colors">
+                            Same as delivery address
+                          </span>
+                        </label>
+
+                        {/* Billing address form (only show if not same as delivery) */}
+                        {!sameAsDelivery && (
+                          <AddressForm
+                            onAddressChange={handleBillingAddressChange}
+                            initialAddress={billingAddress || undefined}
+                            title="Billing Address"
+                            hideTitle
+                          />
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Delivery Address Section */}
+                  <div className="bg-soot border border-smoke">
+                    <button
+                      onClick={() => toggleSection("delivery")}
                       className="w-full flex items-center justify-between p-4"
                     >
                       <div className="flex items-center gap-3">
@@ -539,17 +664,19 @@ export default function CartPage() {
                           </span>
                         )}
                       </div>
-                      {expandedSection === "address" ? (
+                      {expandedSections.has("delivery") ? (
                         <ChevronUp className="h-5 w-5 text-stone" />
                       ) : (
                         <ChevronDown className="h-5 w-5 text-stone" />
                       )}
                     </button>
-                    {expandedSection === "address" && (
+                    {expandedSections.has("delivery") && (
                       <div className="p-4 pt-0 border-t border-smoke">
                         <AddressForm
                           onAddressChange={handleAddressChange}
                           initialAddress={shippingAddress || undefined}
+                          title="Delivery Address"
+                          hideTitle
                         />
                       </div>
                     )}
@@ -678,6 +805,12 @@ export default function CartPage() {
                             <li className="flex items-center gap-1">
                               <AlertCircle className="h-3 w-3 text-ember" />
                               First name
+                            </li>
+                          )}
+                          {!sameAsDelivery && !isBillingAddressValid && (
+                            <li className="flex items-center gap-1">
+                              <AlertCircle className="h-3 w-3 text-ember" />
+                              Billing address
                             </li>
                           )}
                           {!isAddressValid && (

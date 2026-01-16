@@ -1,5 +1,6 @@
 """Admin API endpoints for product, collection, and order management."""
 from fastapi import APIRouter, Depends, HTTPException, Query, Header, status
+from sqlalchemy import text
 from sqlalchemy.orm import Session, joinedload
 from typing import Optional
 import hashlib
@@ -29,6 +30,8 @@ from ..schemas.admin import (
     OrderListResponse,
     OrderItemResponse,
     MessageResponse,
+    SQLQueryRequest,
+    SQLQueryResponse,
 )
 
 router = APIRouter(prefix="/admin", tags=["Admin"])
@@ -783,3 +786,78 @@ async def delete_product_image(
     db.commit()
 
     return MessageResponse(message="Image deleted successfully", id=image_id)
+
+
+# ============================================
+# SQL Query Endpoint (Remote Database Access)
+# ============================================
+
+# Dangerous SQL keywords that should be blocked
+BLOCKED_SQL_KEYWORDS = [
+    "INSERT", "UPDATE", "DELETE", "DROP", "CREATE", "ALTER", "TRUNCATE",
+    "REPLACE", "MERGE", "EXEC", "EXECUTE", "GRANT", "REVOKE", "COMMIT",
+    "ROLLBACK", "SAVEPOINT", "BEGIN", "ATTACH", "DETACH", "VACUUM",
+    "PRAGMA", "REINDEX", "--", ";--", "/*", "*/"
+]
+
+
+@router.post("/sql-query", response_model=SQLQueryResponse)
+async def execute_sql_query(
+    request: SQLQueryRequest,
+    db: Session = Depends(get_db),
+    _: bool = Depends(verify_admin_token),
+):
+    """
+    Execute a read-only SQL query against the database.
+
+    Security:
+    - Requires admin API key in X-Admin-API-Key header
+    - Only SELECT queries are allowed
+    - Dangerous keywords are blocked
+
+    Usage:
+    ```
+    curl -X POST "https://your-api.com/api/v1/admin/sql-query" \\
+      -H "X-Admin-API-Key: your-key" \\
+      -H "Content-Type: application/json" \\
+      -d '{"query": "SELECT * FROM orders LIMIT 10"}'
+    ```
+    """
+    query = request.query.strip()
+    query_upper = query.upper()
+
+    # Check that query starts with SELECT
+    if not query_upper.startswith("SELECT"):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Only SELECT queries are allowed",
+        )
+
+    # Check for blocked keywords
+    for keyword in BLOCKED_SQL_KEYWORDS:
+        if keyword in query_upper:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Query contains blocked keyword: {keyword}",
+            )
+
+    try:
+        # Execute the query using text() for raw SQL
+        result = db.execute(text(query))
+
+        # Get column names
+        columns = list(result.keys()) if result.keys() else []
+
+        # Fetch all rows and convert to lists
+        rows = [list(row) for row in result.fetchall()]
+
+        return SQLQueryResponse(
+            columns=columns,
+            rows=rows,
+            row_count=len(rows),
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Query execution failed: {str(e)}",
+        )

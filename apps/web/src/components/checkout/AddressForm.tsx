@@ -9,6 +9,8 @@ interface AddressFormProps {
   onAddressChange: (address: CheckoutShippingAddress, isValid: boolean) => void;
   initialAddress?: Partial<CheckoutShippingAddress>;
   disabled?: boolean;
+  title?: string;
+  hideTitle?: boolean;
 }
 
 interface FormErrors {
@@ -23,6 +25,8 @@ export function AddressForm({
   onAddressChange,
   initialAddress,
   disabled = false,
+  title = "Delivery Address",
+  hideTitle = false,
 }: AddressFormProps) {
   const [address, setAddress] = useState<CheckoutShippingAddress>({
     street: initialAddress?.street || "",
@@ -88,10 +92,12 @@ export function AddressForm({
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-2 mb-2">
-        <MapPin className="h-5 w-5 text-ember" />
-        <h3 className="font-display text-lg text-white-hot">Delivery Address</h3>
-      </div>
+      {!hideTitle && (
+        <div className="flex items-center gap-2 mb-2">
+          <MapPin className="h-5 w-5 text-ember" />
+          <h3 className="font-display text-lg text-white-hot">{title}</h3>
+        </div>
+      )}
 
       {/* Street Address */}
       <div>

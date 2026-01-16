@@ -404,10 +404,5 @@ export function getCollectionBySlug(slug: string): Collection | undefined {
 }
 
 export function formatPrice(price: number): string {
-  return new Intl.NumberFormat("en-ZA", {
-    style: "currency",
-    currency: "ZAR",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(price);
+  return `R${price.toLocaleString("en-ZA")}`;
 }
