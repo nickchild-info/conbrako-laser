@@ -129,18 +129,6 @@ export interface CartValidateResponse {
   errors: string[];
 }
 
-export interface CheckoutCreateRequest {
-  items: CartItemRequest[];
-  customer_email: string;
-  success_url: string;
-  cancel_url: string;
-}
-
-export interface CheckoutCreateResponse {
-  session_id: string;
-  checkout_url: string;
-}
-
 export interface OrderItem {
   id: string;
   product_id: string;
@@ -153,7 +141,6 @@ export interface OrderItem {
 
 export interface OrderResponse {
   id: string;
-  stripe_session_id: string | null;
   payfast_payment_id: string | null;
   status: string;
   customer_email: string | null;

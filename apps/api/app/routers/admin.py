@@ -582,7 +582,7 @@ async def list_orders(
 
         order_response = OrderAdminResponse(
             id=order.id,
-            stripe_session_id=order.stripe_session_id,
+            payfast_payment_id=order.payfast_payment_id,
             status=order.status,
             customer_email=order.customer_email,
             total=order.total,
@@ -640,7 +640,7 @@ async def get_order(
 
     return OrderAdminResponse(
         id=order.id,
-        stripe_session_id=order.stripe_session_id,
+        payfast_payment_id=order.payfast_payment_id,
         status=order.status,
         customer_email=order.customer_email,
         total=order.total,
@@ -723,7 +723,7 @@ async def update_order_status(
 
     return OrderAdminResponse(
         id=order.id,
-        stripe_session_id=order.stripe_session_id,
+        payfast_payment_id=order.payfast_payment_id,
         status=order.status,
         customer_email=order.customer_email,
         total=order.total,

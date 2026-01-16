@@ -1,4 +1,6 @@
 {
+  "allowedTools": ["git commit", "git push", "git add"]
+,
   "env": {
     "XDG_CACHE_HOME": ".cache",
     "npm_config_cache": ".cache/npm",

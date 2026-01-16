@@ -1,5 +1,5 @@
 """Pydantic schemas for collections."""
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from .product import ProductList
 
 
@@ -8,13 +8,14 @@ class PromoBlockBase(BaseModel):
     id: int
     position_index: int
     title: str
-    copy: str | None = None
+    body_copy: str | None = Field(default=None, alias="copy")
     cta_text: str | None = None
     cta_url: str | None = None
     image_url: str | None = None
 
     class Config:
         from_attributes = True
+        populate_by_name = True
 
 
 class CollectionBase(BaseModel):

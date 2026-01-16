@@ -24,8 +24,8 @@ from .cart import (
     CartValidateRequest,
     CartValidateResponse,
     ValidatedCartItem,
-    CheckoutCreateRequest,
-    CheckoutCreateResponse,
+    PayfastCheckoutRequest,
+    PayfastCheckoutResponse,
     OrderItemResponse,
     OrderResponse,
 )
@@ -78,8 +78,8 @@ __all__ = [
     "CartValidateRequest",
     "CartValidateResponse",
     "ValidatedCartItem",
-    "CheckoutCreateRequest",
-    "CheckoutCreateResponse",
+    "PayfastCheckoutRequest",
+    "PayfastCheckoutResponse",
     "OrderItemResponse",
     "OrderResponse",
     # Upload schemas

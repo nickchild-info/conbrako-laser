@@ -5,8 +5,6 @@ import api from "../api-client";
 import type {
   CartItemRequest,
   CartValidateResponse,
-  CheckoutCreateRequest,
-  CheckoutCreateResponse,
   OrderResponse,
   PayfastCheckoutRequest,
   PayfastCheckoutResponse,
@@ -19,15 +17,6 @@ export async function validateCart(
   items: CartItemRequest[]
 ): Promise<CartValidateResponse> {
   return api.post<CartValidateResponse>("/cart/validate", { items });
-}
-
-/**
- * Create a Stripe checkout session (legacy - use createPayfastCheckout instead)
- */
-export async function createCheckoutSession(
-  request: CheckoutCreateRequest
-): Promise<CheckoutCreateResponse> {
-  return api.post<CheckoutCreateResponse>("/checkout/create-session", request);
 }
 
 /**
@@ -49,7 +38,6 @@ export async function getOrder(orderId: string): Promise<OrderResponse> {
 
 export const cartApi = {
   validateCart,
-  createCheckoutSession,
   createPayfastCheckout,
   getOrder,
 };

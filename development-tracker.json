@@ -129,7 +129,7 @@
             { "id": "t_2_2_5", "task": "Create CollectionProduct join table", "status": "not_started", "notes": "" },
             { "id": "t_2_2_6", "task": "Create ReviewSummary model", "status": "not_started", "notes": "" },
             { "id": "t_2_2_7", "task": "Create PromoBlock model", "status": "not_started", "notes": "" },
-            { "id": "t_2_2_8", "task": "Create Order model", "status": "not_started", "notes": "id, stripe_session_id, status, customer_email, total, shipping_address, created_at" },
+            { "id": "t_2_2_8", "task": "Create Order model", "status": "not_started", "notes": "id, payfast_payment_id, status, customer_email, total, shipping_address, created_at" },
             { "id": "t_2_2_9", "task": "Create OrderItem model", "status": "not_started", "notes": "" },
             { "id": "t_2_2_10", "task": "Create DesignTemplate model", "status": "not_started", "notes": "For personalised designs" },
             { "id": "t_2_2_11", "task": "Create CustomDesignOrder model", "status": "not_started", "notes": "Links order to uploaded design file" }
@@ -151,7 +151,7 @@
           "name": "Cart & Checkout API",
           "tasks": [
             { "id": "t_2_4_1", "task": "POST /api/cart/validate - Validate cart items and prices", "status": "not_started", "notes": "" },
-            { "id": "t_2_4_2", "task": "POST /api/checkout/create-session - Create Stripe checkout session", "status": "not_started", "notes": "" },
+            { "id": "t_2_4_2", "task": "POST /api/checkout/create-session - Create Payfast checkout", "status": "not_started", "notes": "" },
             { "id": "t_2_4_3", "task": "GET /api/orders/{id} - Get order details", "status": "not_started", "notes": "" }
           ]
         },
@@ -179,16 +179,16 @@
     },
     {
       "id": "phase_3",
-      "name": "Stripe Checkout Integration",
+      "name": "Payfast Checkout Integration",
       "description": "Payment processing and order management",
       "status": "not_started",
       "workstreams": [
         {
           "id": "ws_3_1",
-          "name": "Stripe Setup",
+          "name": "Payfast Setup",
           "tasks": [
-            { "id": "t_3_1_1", "task": "Create Stripe account and get API keys", "status": "not_started", "notes": "" },
-            { "id": "t_3_1_2", "task": "Configure test mode products in Stripe", "status": "not_started", "notes": "" },
+            { "id": "t_3_1_1", "task": "Create Payfast merchant account and get API keys", "status": "not_started", "notes": "" },
+            { "id": "t_3_1_2", "task": "Configure Payfast sandbox mode", "status": "not_started", "notes": "" },
             { "id": "t_3_1_3", "task": "Set up webhook endpoint", "status": "not_started", "notes": "" },
             { "id": "t_3_1_4", "task": "Configure webhook signing secret", "status": "not_started", "notes": "" }
           ]
@@ -197,7 +197,7 @@
           "id": "ws_3_2",
           "name": "Checkout Flow",
           "tasks": [
-            { "id": "t_3_2_1", "task": "Create Stripe Checkout session with line items", "status": "not_started", "notes": "" },
+            { "id": "t_3_2_1", "task": "Create Payfast checkout with order data", "status": "not_started", "notes": "" },
             { "id": "t_3_2_2", "task": "Include shipping options in checkout", "status": "not_started", "notes": "" },
             { "id": "t_3_2_3", "task": "Handle success redirect to /order-confirmation", "status": "not_started", "notes": "" },
             { "id": "t_3_2_4", "task": "Handle cancel redirect back to cart", "status": "not_started", "notes": "" },
@@ -221,7 +221,7 @@
             { "id": "t_3_4_1", "task": "Create /order-confirmation page", "status": "not_started", "notes": "" },
             { "id": "t_3_4_2", "task": "Display order summary and details", "status": "not_started", "notes": "" },
             { "id": "t_3_4_3", "task": "Clear cart after successful order", "status": "not_started", "notes": "" },
-            { "id": "t_3_4_4", "task": "Send confirmation email", "status": "not_started", "notes": "Can use Stripe email initially" }
+            { "id": "t_3_4_4", "task": "Send confirmation email", "status": "not_started", "notes": "Can use Payfast email initially" }
           ]
         }
       ]
@@ -256,7 +256,7 @@
           "name": "Checkout Integration",
           "tasks": [
             { "id": "t_4_3_1", "task": "Create checkout button that calls API", "status": "not_started", "notes": "" },
-            { "id": "t_4_3_2", "task": "Redirect to Stripe checkout URL", "status": "not_started", "notes": "" },
+            { "id": "t_4_3_2", "task": "Redirect to Payfast payment page", "status": "not_started", "notes": "" },
             { "id": "t_4_3_3", "task": "Handle checkout errors gracefully", "status": "not_started", "notes": "" }
           ]
         },
@@ -451,7 +451,7 @@
     },
     {
       "priority": 3,
-      "action": "Implement Stripe checkout integration",
+      "action": "Implement Payfast checkout integration",
       "phase": "phase_3",
       "workstream": "ws_3_1",
       "reason": "Critical path to accepting payments"
@@ -488,7 +488,7 @@
       "id": "q3",
       "question": "Email provider for transactional emails (order confirmation, etc.)?",
       "status": "open",
-      "impact": "Can start with Stripe emails, but may want branded emails"
+      "impact": "Can start with Payfast emails, but may want branded emails"
     },
     {
       "id": "q4",
@@ -518,8 +518,8 @@
       "language": "Python 3.11+"
     },
     "payments": {
-      "provider": "Stripe Checkout",
-      "webhooks": "Stripe Webhooks"
+      "provider": "Payfast",
+      "webhooks": "Payfast ITN (Instant Transaction Notification)"
     },
     "storage": {
       "files": "S3-compatible (design uploads)",

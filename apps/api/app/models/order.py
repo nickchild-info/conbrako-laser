@@ -22,7 +22,6 @@ class Order(Base):
     __tablename__ = "orders"
 
     id = Column(Integer, primary_key=True, index=True)
-    stripe_session_id = Column(String(255), unique=True, nullable=True, index=True)  # Legacy Stripe
     payfast_payment_id = Column(String(255), unique=True, nullable=True, index=True)  # Payfast payment ID
     status = Column(Enum(OrderStatus), default=OrderStatus.PENDING, nullable=False)
     customer_email = Column(String(255), nullable=True, index=True)  # Made nullable for pending orders

@@ -11,8 +11,8 @@ class Settings(BaseSettings):
     debug: bool = False
     api_v1_prefix: str = "/api/v1"
 
-    # Database
-    database_url: str = "postgresql://koosdoos:koosdoos@localhost:5432/koosdoos"
+    # Database (SQLite for local dev, PostgreSQL for production)
+    database_url: str = "sqlite:///./koosdoos.db"
 
     # CORS
     cors_origins: list[str] = [

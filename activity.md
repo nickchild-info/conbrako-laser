@@ -1,5 +1,9 @@
 # Activity Log
 
+> **Note:** This log contains historical references to Stripe payment integration from early development.
+> Stripe has been fully replaced with Payfast (South African payment gateway) as Stripe is not available in ZA.
+> The current codebase uses Payfast exclusively - see "Sprint 2 Scope Update" and "Payfast" entries below.
+
 ## 2026-01-14
 
 ### Product Listing Page (PLP) - Carousel Verification

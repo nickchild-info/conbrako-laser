@@ -1,7 +1,6 @@
 """Product and related models."""
-from sqlalchemy import Column, Integer, String, Text, Numeric, ForeignKey, Table, Float
+from sqlalchemy import Column, Integer, String, Text, Numeric, ForeignKey, Table, Float, JSON
 from sqlalchemy.orm import relationship
-from sqlalchemy.dialects.postgresql import ARRAY
 from ..core.database import Base
 
 
@@ -23,7 +22,7 @@ class Product(Base):
     title = Column(String(255), nullable=False)
     subtitle = Column(String(255), nullable=True)
     description = Column(Text, nullable=True)
-    badges = Column(ARRAY(String), nullable=True)  # e.g., ["bestseller", "new"]
+    badges = Column(JSON, nullable=True)  # e.g., ["bestseller", "new"]
     seats_min = Column(Integer, nullable=True)
     seats_max = Column(Integer, nullable=True)
     material = Column(String(100), nullable=True)

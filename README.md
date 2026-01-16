@@ -29,9 +29,9 @@ Primary reference for UX patterns (structure, not visuals/assets): Solo Stove â€
 **DB:** Postgres (products, variants, collections, reviews summary, inventory, promos)  
 **Media:** S3-compatible object storage (images), CDN  
 **Search:** Postgres trigram first; swap to Meilisearch/Algolia later  
-**Payments:** Stripe Checkout (fast + secure)  
-**Analytics:** GA4 via GTM, Meta pixel optional  
-**Email:** Post-purchase via Stripe webhooks â†’ email provider (later)
+**Payments:** Payfast (South African payment gateway)
+**Analytics:** GA4 via GTM, Meta pixel optional
+**Email:** Post-purchase via Payfast ITN â†’ email provider (later)
 
 > Alternative (faster launch): Shopify backend + headless storefront. Keep the same frontend patterns; swap FastAPI for Shopify Storefront API. (Not the default in this repo unless you choose it.)
 
@@ -43,7 +43,7 @@ Primary reference for UX patterns (structure, not visuals/assets): Solo Stove â€
 3. PDP (product detail)
 4. **Personalise** â€” Custom design page for premium laser-cut panels
 5. Cart (drawer + page)
-6. Checkout (Stripe hosted)
+6. Checkout (Payfast hosted)
 7. Content pages: About, FAQs, Shipping/Returns, Warranty, Contact
 8. Legal: Privacy, Terms
 
@@ -156,7 +156,7 @@ All sizes available with optional personalised laser-cut front panels.
    - PromoBlock tile
 5. Implement PDP:
    - Gallery, options, add-to-cart, trust blocks (shipping/warranty)
-6. Implement Cart + Stripe checkout
+6. Implement Cart + Payfast checkout
 7. Admin/CMS-lite:
    - Seed script + minimal admin UI OR JSON-based config first
 8. SEO + analytics + performance pass
@@ -167,7 +167,7 @@ All sizes available with optional personalised laser-cut front panels.
 # Acceptance Criteria (MVP)
 - PLP loads < 2s on 4G for a median image set (CDN + optimized images)
 - Lighthouse: Performance 85+ mobile, Accessibility 95+
-- Create order end-to-end via Stripe
+- Create order end-to-end via Payfast
 - Products manageable without code changes (seed tool / admin / CMS-lite)
 - SEO: indexable PLP + PDP, clean URLs, meta, OG, sitemap
 

@@ -156,7 +156,7 @@ test.describe('Browse to Checkout Flow', () => {
 
     await expect(checkoutButton).toBeVisible();
 
-    // Note: Actually clicking checkout would require Stripe setup
+    // Note: Actually clicking checkout would require Payfast setup
     // For now we just verify the button exists and is clickable
   });
 

@@ -17,7 +17,7 @@ import { useAdminAuth } from "../layout";
 
 interface Order {
   id: number;
-  stripe_session_id: string;
+  payfast_payment_id: string | null;
   customer_email: string;
   total: number;
   status: string;
@@ -48,7 +48,7 @@ const ORDER_STATUSES = [
 const mockOrders: Order[] = [
   {
     id: 1001,
-    stripe_session_id: "cs_test_abc123",
+    payfast_payment_id: "pf_abc123",
     customer_email: "jan@example.co.za",
     total: 399500,
     status: "paid",
@@ -59,7 +59,7 @@ const mockOrders: Order[] = [
   },
   {
     id: 1002,
-    stripe_session_id: "cs_test_def456",
+    payfast_payment_id: "pf_def456",
     customer_email: "sarah@example.co.za",
     total: 699000,
     status: "processing",
@@ -71,7 +71,7 @@ const mockOrders: Order[] = [
   },
   {
     id: 1003,
-    stripe_session_id: "cs_test_ghi789",
+    payfast_payment_id: "pf_ghi789",
     customer_email: "pieter@example.co.za",
     total: 649500,
     status: "shipped",
@@ -82,7 +82,7 @@ const mockOrders: Order[] = [
   },
   {
     id: 1004,
-    stripe_session_id: "cs_test_jkl012",
+    payfast_payment_id: "pf_jkl012",
     customer_email: "anna@example.co.za",
     total: 749500,
     status: "delivered",
@@ -93,7 +93,7 @@ const mockOrders: Order[] = [
   },
   {
     id: 1005,
-    stripe_session_id: "cs_test_mno345",
+    payfast_payment_id: null,
     customer_email: "johan@example.co.za",
     total: 299500,
     status: "pending",

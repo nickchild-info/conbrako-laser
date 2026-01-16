@@ -187,7 +187,7 @@ class OrderItemResponse(BaseModel):
 class OrderAdminResponse(BaseModel):
     """Schema for order in admin response."""
     id: int
-    stripe_session_id: Optional[str] = None
+    payfast_payment_id: Optional[str] = None
     status: OrderStatus
     customer_email: str
     total: Decimal

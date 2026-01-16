@@ -232,15 +232,15 @@ export default function PrivacyPage() {
               <div className="bg-charcoal border border-smoke p-6">
                 <h3 className="font-display text-lg text-white-hot mb-3">Payment Processors</h3>
                 <p className="text-stone text-sm">
-                  We use Stripe to process payments securely. Your card details are handled directly by Stripe
+                  We use Payfast to process payments securely. Your card details are handled directly by Payfast
                   and are never stored on our servers. View{" "}
                   <a
-                    href="https://stripe.com/privacy"
+                    href="https://www.payfast.co.za/privacy-policy/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-ember hover:underline"
                   >
-                    Stripe's Privacy Policy
+                    Payfast&apos;s Privacy Policy
                   </a>
                   .
                 </p>

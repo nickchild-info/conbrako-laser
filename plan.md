@@ -171,7 +171,7 @@ Launch a rugged fire pit / fire boma ecommerce storefront for **KoosDoos Fire Pi
       "GET /api/orders/{id} - Get order details"
     ],
     "passes": true,
-    "notes": "3/3 complete - needs migration from Stripe to Payfast form data"
+    "notes": "3/3 complete - uses Payfast form POST redirect"
   },
   {
     "category": "phase_2_backend",
@@ -278,11 +278,11 @@ Launch a rugged fire pit / fire boma ecommerce storefront for **KoosDoos Fire Pi
     "description": "Checkout Integration",
     "steps": [
       "Create checkout button that calls API",
-      "Redirect to Stripe checkout URL",
+      "Redirect to Payfast payment page",
       "Handle checkout errors gracefully"
     ],
     "passes": true,
-    "notes": "3/3 complete - Cart page and CartDrawer both call createCheckoutSession API, redirect to Stripe URL, display loading state and error messages"
+    "notes": "3/3 complete - Cart page creates Payfast checkout, redirects to Payfast payment page with form POST, displays loading state and error messages"
   },
   {
     "category": "phase_4_integration",

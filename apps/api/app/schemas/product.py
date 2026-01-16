@@ -13,6 +13,9 @@ class VariantBase(BaseModel):
     weight: float | None = None
     dimensions_mm: str | None = None
 
+    class Config:
+        from_attributes = True
+
 
 class ProductImageBase(BaseModel):
     """Base product image schema."""
@@ -21,11 +24,17 @@ class ProductImageBase(BaseModel):
     alt: str | None = None
     sort_order: int = 0
 
+    class Config:
+        from_attributes = True
+
 
 class ReviewSummaryBase(BaseModel):
     """Base review summary schema."""
     rating_avg: float
     rating_count: int
+
+    class Config:
+        from_attributes = True
 
 
 class ProductBase(BaseModel):

@@ -109,6 +109,7 @@ export async function getShippingQuotes(
 /**
  * Get simplified shipping quote by province and product size
  * Useful for cart page shipping calculator
+ * Uses shorter timeout and no retries for better UX when API is unavailable
  */
 export async function getSimpleQuote(
   province: string,
@@ -120,7 +121,11 @@ export async function getSimpleQuote(
     product_size: productSize,
     quantity: quantity.toString(),
   });
-  return api.post<SimpleQuoteResponse>(`/shipping/quote/simple?${params}`);
+  // Use short timeout and no retries for better fallback to mock data
+  return api.post<SimpleQuoteResponse>(`/shipping/quote/simple?${params}`, undefined, {
+    timeout: 3000,
+    retries: 0,
+  });
 }
 
 /**

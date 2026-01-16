@@ -29,7 +29,7 @@ interface OrderItem {
 
 interface Order {
   id: number;
-  stripe_session_id: string;
+  payfast_payment_id: string | null;
   customer_email: string;
   total: number;
   status: string;
@@ -54,7 +54,7 @@ const STATUS_TRANSITIONS: Record<string, string[]> = {
 // Mock order for when API is not available
 const mockOrder: Order = {
   id: 1001,
-  stripe_session_id: "cs_test_abc123def456",
+  payfast_payment_id: "pf_abc123def456",
   customer_email: "jan@example.co.za",
   total: 549500,
   status: "paid",
@@ -413,9 +413,9 @@ export default function OrderDetailPage({
             <div className="flex items-center gap-3">
               <CreditCard className="h-5 w-5 text-ember" />
               <div>
-                <p className="text-white-hot">Stripe</p>
+                <p className="text-white-hot">Payfast</p>
                 <p className="text-stone text-sm truncate max-w-[200px]">
-                  {order.stripe_session_id}
+                  {order.payfast_payment_id || "Pending"}
                 </p>
               </div>
             </div>

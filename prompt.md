@@ -115,7 +115,7 @@ interface PayfastFormProps {
 ### 5. Update Checkout Flow
 **File:** `apps/web/src/app/cart/page.tsx` (and CartDrawer)
 
-Replace Stripe flow with Payfast:
+Checkout flow (using Payfast):
 
 1. User clicks "Proceed to Checkout"
 2. Show AddressForm if not already collected

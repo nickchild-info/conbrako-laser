@@ -272,7 +272,7 @@ export const api = {
  * Build a query string from an object
  */
 export function buildQueryString(
-  params: Record<string, string | number | boolean | undefined | null>
+  params: object
 ): string {
   const searchParams = new URLSearchParams();
 

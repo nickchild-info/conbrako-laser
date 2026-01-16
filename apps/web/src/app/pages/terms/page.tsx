@@ -76,7 +76,7 @@ const sections = [
     content: [
       "Payment must be made in full at the time of order through our secure checkout process.",
       "We accept major credit cards, debit cards, and other payment methods as indicated on our Website.",
-      "All payment processing is handled securely by Stripe. We do not store your full card details.",
+      "All payment processing is handled securely by Payfast. We do not store your full card details.",
       "Orders will not be dispatched until payment has been received and verified.",
       "If your payment is declined, your order will be cancelled and you will be notified.",
     ],

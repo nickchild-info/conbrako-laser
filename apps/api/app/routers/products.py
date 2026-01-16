@@ -1,6 +1,7 @@
 """Product API endpoints."""
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session, joinedload
+from sqlalchemy import String, cast
 from typing import Optional
 
 from ..core.database import get_db
@@ -49,11 +50,12 @@ async def list_products(
             variant_subquery = variant_subquery.filter(Variant.price <= max_price)
         query = query.filter(Product.id.in_(variant_subquery))
 
-    # Apply badge filter
+    # Apply badge filter (JSON column - use LIKE for SQLite compatibility)
     if badges:
         badge_list = [b.strip().lower() for b in badges.split(",")]
         for badge in badge_list:
-            query = query.filter(Product.badges.any(badge))
+            # Use string matching for JSON array (works with both SQLite and PostgreSQL)
+            query = query.filter(cast(Product.badges, String).like(f'%"{badge}"%'))
 
     # Apply sorting
     if sort == "price_asc":
@@ -90,7 +92,7 @@ async def list_products(
     if badges:
         badge_list = [b.strip().lower() for b in badges.split(",")]
         for badge in badge_list:
-            count_query = count_query.filter(Product.badges.any(badge))
+            count_query = count_query.filter(cast(Product.badges, String).like(f'%"{badge}"%'))
 
     total = count_query.count()
 

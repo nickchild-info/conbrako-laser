@@ -37,20 +37,6 @@ class CartValidateResponse(BaseModel):
     errors: list[str] = []
 
 
-class CheckoutCreateRequest(BaseModel):
-    """Request body for creating checkout session (legacy Stripe)."""
-    items: list[CartItem]
-    customer_email: EmailStr
-    success_url: str
-    cancel_url: str
-
-
-class CheckoutCreateResponse(BaseModel):
-    """Response for checkout session creation (legacy Stripe)."""
-    session_id: str
-    checkout_url: str
-
-
 # ============================================================================
 # Payfast Checkout Schemas
 # ============================================================================
@@ -117,7 +103,6 @@ class OrderItemResponse(BaseModel):
 class OrderResponse(BaseModel):
     """Response for order details."""
     id: int
-    stripe_session_id: str | None = None
     payfast_payment_id: str | None = None
     status: str
     customer_email: str | None

@@ -28,7 +28,7 @@ import type { OrderResponse } from "@/lib/api/types";
 function OrderConfirmationContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("order_id");
-  const sessionId = searchParams.get("session_id"); // Legacy Stripe support
+  const sessionId = searchParams.get("session_id"); // Fallback param
   const { clearCart, items, subtotal } = useCart();
   const [orderCleared, setOrderCleared] = useState(false);
   const [order, setOrder] = useState<OrderResponse | null>(null);
@@ -39,7 +39,6 @@ function OrderConfirmationContent() {
   // Fetch order details from API
   useEffect(() => {
     const fetchOrder = async () => {
-      // Support both order_id (Payfast) and session_id (legacy Stripe)
       const id = orderId || sessionId;
 
       if (!id) {

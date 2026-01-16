@@ -176,25 +176,6 @@ class TestCheckoutSession:
         # Should fail with invalid email
         assert response.status_code == 422
 
-    def test_create_checkout_session_structure(self, client, db_session):
-        """Test checkout session request structure."""
-        seed_products_for_cart(db_session)
-
-        # This test just validates the endpoint accepts the correct structure
-        # Actual Stripe integration would require mocking
-        response = client.post(
-            "/api/v1/checkout/create-session",
-            json={
-                "items": [{"product_id": 1, "variant_id": 1, "quantity": 1}],
-                "customer_email": "test@example.com",
-                "success_url": "http://localhost:3000/order-confirmation",
-                "cancel_url": "http://localhost:3000/cart",
-            },
-        )
-        # Either succeeds or fails due to missing Stripe config (both acceptable)
-        assert response.status_code in [200, 400, 500]
-
-
 class TestOrderRetrieval:
     """Tests for order retrieval endpoint."""
 

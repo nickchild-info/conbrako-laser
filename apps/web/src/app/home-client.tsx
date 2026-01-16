@@ -108,11 +108,20 @@ export function HomePageClient({ featuredProducts }: HomePageClientProps) {
     <div>
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-charcoal">
-          <div className="absolute inset-0 bg-gradient-to-br from-charcoal via-soot to-charcoal" />
+        {/* Background with hero image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/images/hero/hero-bg.jpg"
+            alt="KoosDoos fire pit with flames"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-charcoal/70" />
           {/* Decorative fire gradient */}
-          <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-ember/10 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-ember/20 to-transparent" />
         </div>
 
         {/* Content */}

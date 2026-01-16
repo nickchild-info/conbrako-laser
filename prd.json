@@ -45,7 +45,7 @@
       "PDP (product details) with gallery, options, trust blocks",
       "Personalise page with template selection and custom design upload",
       "Cart (drawer + page)",
-      "Stripe hosted checkout",
+      "Payfast hosted checkout",
       "Order confirmation page",
       "Basic CMS-lite for products/collections/promos",
       "Design approval workflow for custom orders",
@@ -154,7 +154,7 @@
     },
     "cart_and_checkout": {
       "cart": ["update quantity", "remove item", "estimated totals", "shipping messaging"],
-      "checkout": ["Stripe Checkout session creation", "success/cancel handling"],
+      "checkout": ["Payfast checkout initiation", "success/cancel handling"],
       "webhooks": ["payment_succeeded -> create order record", "payment_failed -> log"]
     },
     "cms_lite": {
@@ -210,7 +210,7 @@
       "Server-side rendering for PLP/PDP"
     ],
     "security": [
-      "No card data handled directly (Stripe hosted)",
+      "No card data handled directly (Payfast hosted)",
       "Webhook signature verification",
       "Rate limit public API endpoints"
     ],
@@ -231,7 +231,7 @@
     },
     {
       "name": "M3 Checkout + Orders",
-      "deliverables": ["Stripe checkout", "webhooks", "order confirmation", "basic admin seed flow"]
+      "deliverables": ["Payfast checkout", "webhooks", "order confirmation", "basic admin seed flow"]
     },
     {
       "name": "M4 Harden",
@@ -239,7 +239,7 @@
     }
   ],
   "acceptance_criteria": [
-    "A user can browse PLP, filter/sort, open PDP, add to cart, and purchase via Stripe.",
+    "A user can browse PLP, filter/sort, open PDP, add to cart, and purchase via Payfast.",
     "PLP and PDP are server-rendered, indexable, and include metadata + sitemap.",
     "Products/collections/promos can be updated without modifying frontend code (seed/admin).",
     "Meets Lighthouse + Core Web Vitals targets in success_metrics."
