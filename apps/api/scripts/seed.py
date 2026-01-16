@@ -307,7 +307,7 @@ def seed_collections(db: Session, products: dict[str, Product]) -> dict[str, Col
         {
             "slug": "fire-pits",
             "title": "Fire Pits",
-            "hero_copy": "Premium laser-cut steel fire pits. Flat-pack design. Rugged construction. Not for sissies.",
+            "hero_copy": "Premium laser-cut steel fire pits. Flat-pack design. Rugged construction.",
             "product_slugs": list(products.keys()),  # All products
         },
         {

@@ -29,11 +29,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "KoosDoos Fire Pits | Built Tough. Burns Harder.",
+    default: "KoosDoos Fire Pits | Cut from steel. Built to last.",
     template: "%s | KoosDoos Fire Pits",
   },
   description:
-    "Premium laser-cut steel fire pits for the serious braai enthusiast. Flat-pack design, rugged construction, and African artistry. Not for sissies.",
+    "Premium laser-cut steel fire pits for the serious braai enthusiast. Flat-pack design, rugged construction, and African artistry.",
   keywords: [
     "fire pit",
     "fire boma",
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     locale: "en_ZA",
     url: BASE_URL,
     siteName: "KoosDoos Fire Pits",
-    title: "KoosDoos Fire Pits | Built Tough. Burns Harder.",
+    title: "KoosDoos Fire Pits | Cut from steel. Built to last.",
     description:
       "Premium laser-cut steel fire pits for the serious braai enthusiast. Flat-pack design, rugged construction, and African artistry.",
     images: [
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "KoosDoos Fire Pits | Built Tough. Burns Harder.",
+    title: "KoosDoos Fire Pits | Cut from steel. Built to last.",
     description:
       "Premium laser-cut steel fire pits for the serious braai enthusiast. Flat-pack design, rugged construction.",
     images: ["/images/og-image.jpg"],

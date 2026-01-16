@@ -206,7 +206,7 @@ export function ComponentsPage() {
                 </div>
               </div>
               <p className="text-[#a1a1a1] text-sm mb-4 line-clamp-2">
-                Our largest fire pit. Engineered to ember. Not for sissies.
+                Our largest fire pit. Engineered to ember. Rugged as hell.
               </p>
               <div className="flex items-center justify-between">
                 <span className="text-[#fafafa] text-2xl">R 3,799</span>

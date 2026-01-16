@@ -348,7 +348,7 @@ export const collections: Collection[] = [
     slug: "fire-pits",
     title: "Fire Pits",
     heroCopy:
-      "Premium laser-cut steel fire pits. Flat-pack design. Rugged construction. Not for sissies.",
+      "Premium laser-cut steel fire pits. Flat-pack design. Rugged construction.",
     products: products,
   },
   {

@@ -122,16 +122,16 @@ export function HomePageClient({ featuredProducts }: HomePageClientProps) {
 
             {/* Main headline */}
             <h1 className="font-display text-6xl sm:text-7xl lg:text-8xl text-white-hot mb-6 slide-up slide-up-delay-1 leading-none">
-              Built Tough.
+              Cut from steel.
               <br />
-              <span className="text-fire-gradient">Burns Harder.</span>
+              <span className="text-fire-gradient">Built to last.</span>
             </h1>
 
             {/* Subheadline */}
             <p className="text-xl sm:text-2xl text-stone max-w-xl mb-10 slide-up slide-up-delay-2">
-              Laser-cut steel fire pits. Flat-pack design. Rugged construction.
+              Laser-cut steel fire pits. Flat-pack design.
               <span className="block mt-2 text-sand font-medium">
-                Not for sissies.
+                Rugged as hell.
               </span>
             </p>
 

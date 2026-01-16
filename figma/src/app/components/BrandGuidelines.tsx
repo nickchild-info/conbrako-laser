@@ -41,7 +41,7 @@ export function BrandGuidelines() {
       weight: '400',
       usage: 'Hero headlines, section titles, product names',
       characteristics: 'Condensed, bold, industrial',
-      example: 'NOT FOR SISSIES',
+      example: 'CUT FROM STEEL',
       size: 'text-5xl',
     },
     {
@@ -89,8 +89,8 @@ export function BrandGuidelines() {
 
   const brandVoice = {
     taglines: [
-      'Built Tough. Burns Harder.',
-      'Not For Sissies.',
+      'Cut From Steel. Built To Last.',
+      'Rugged As Hell.',
       'Flat-Pack Fire. Full-Time Braai.',
       'Steel Guts. Real Fire.',
       'Engineered To Ember.',
