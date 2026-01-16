@@ -2072,3 +2072,116 @@ All 6 frontend integration tasks have been completed:
 - `apps/api/.env` - Backend environment
 
 ---
+
+## 2026-01-16
+
+### Backend Simplification & Checkout UX - COMPLETE
+
+**Date:** 2026-01-16
+
+**Tasks Completed:**
+
+#### Backend Simplification (Phase 1)
+- Removed PostgreSQL dependencies (`psycopg2-binary`, `asyncpg`)
+- Deleted `docker-compose.yml` (no longer needed)
+- Simplified `database.py` to SQLite-only engine
+- Updated `alembic.ini`, `.env.example`, `.env.production.example` for SQLite
+- Added secure admin SQL query endpoint (`POST /admin/sql-query`)
+  - SELECT queries only
+  - Blocks dangerous keywords (INSERT, UPDATE, DELETE, DROP, etc.)
+  - Requires `X-Admin-API-Key` header
+
+#### Checkout UX Improvements (Phase 2)
+- Added Billing Address section with "Same as delivery address" checkbox
+- Expanded Customer Info, Billing, and Delivery sections by default
+- Persist checkout details in localStorage
+- Fixed R currency spacing (R2,500 instead of R 2 500)
+
+#### UI Fixes (Phase 3)
+- Fixed button icon alignment - icons now display inline with text
+- Updated Header, Footer, ProductCard styling
+- Enhanced global CSS with new animations and effects
+
+**Commits:**
+- `5a65ad4` - Simplify backend to SQLite-only and improve checkout UX
+- `bdc9ef7` - Remove cache files and plan.md from git tracking
+
+**Files Changed:**
+- `apps/api/docker-compose.yml` - Deleted
+- `apps/api/requirements.txt` - Removed PostgreSQL packages
+- `apps/api/alembic.ini` - SQLite URL
+- `apps/api/.env.example` - SQLite config
+- `apps/api/.env.production.example` - SQLite config
+- `apps/api/app/core/database.py` - SQLite-only engine
+- `apps/api/app/routers/admin.py` - SQL query endpoint
+- `apps/api/app/schemas/admin.py` - SQL query schemas
+- `apps/web/src/app/cart/page.tsx` - Billing address, localStorage persistence
+- `apps/web/src/components/checkout/AddressForm.tsx` - Title prop support
+- `apps/web/src/components/ui/Button.tsx` - Icon alignment fix
+- `apps/web/src/data/products.ts` - Currency formatting fix
+- `apps/web/src/app/globals.css` - Enhanced animations
+- `apps/web/src/components/layout/Header.tsx` - Styling updates
+- `apps/web/src/components/layout/Footer.tsx` - Styling updates
+- `apps/web/src/components/product/ProductCard.tsx` - Styling updates
+- `apps/web/src/app/home-client.tsx` - Homepage updates
+
+**Note:** Turbopack HMR caching issue with Wrench icon causes errors in dev mode. Production build (`npm run build && npm run start`) works correctly.
+
+---
+
+### New Feature Proposals - Phase 4 & 5
+
+**Date:** 2026-01-16
+
+**New Features Proposed:**
+
+#### 1. Pricing Restructure
+- Standard KoosDoos (plain metal) = base/cheaper price
+- Personalised designs = base price + 40% markup
+- Medium base price below R2,500 free shipping threshold
+
+**Proposed Pricing:**
+| Size | Standard | Personalised (+40%) |
+|------|----------|---------------------|
+| Small | R999 | R1,399 |
+| Medium | R1,499 | R2,099 |
+| Large | R2,199 | R3,079 |
+| XL | R2,999 | R4,199 |
+
+#### 2. Accessories Collection (NEW)
+
+**Raise the Base Insert:**
+- Elevates fire position in fire pit
+- Available for Large and XL sizes only
+- Price: R499 - R699
+
+**Braai-Box Grid Topper:**
+- Converts fire pit into a braai
+- Available for all sizes (Small, Medium, Large, XL)
+- Price: R399 - R799
+- Helps customers reach free shipping threshold
+
+#### 3. Free Shipping Strategy
+- Threshold: R2,500
+- Medium (R1,499) alone = no free shipping
+- Medium (R1,499) + Braai-Box (R599) = R2,098 (still under)
+- Large (R2,199) + Braai-Box (R699) = R2,898 → FREE SHIPPING ✅
+
+#### 4. Cart Upsell Feature
+- Suggest Braai-Box when cart is below free shipping threshold
+- Show amount needed to qualify
+- Quick-add button for compatible size
+
+**Status:** Documented in plan.md, awaiting implementation
+
+---
+
+### Screenshots
+
+| Screenshot | Description |
+|------------|-------------|
+| `checkout-billing-delivery.png` | Checkout with Billing Address section |
+| `homepage-hero-buttons.png` | Fixed button alignment on hero |
+| `product-buttons.png` | Fixed Add to Cart button alignment |
+
+---
