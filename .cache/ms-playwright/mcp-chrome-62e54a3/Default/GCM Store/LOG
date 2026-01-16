@@ -1,2 +1,3 @@
-2026/01/15-16:35:14.924 b6e7a Creating DB /home/nick/Github/conbrako-laser/.cache/ms-playwright/mcp-chrome-62e54a3/Default/GCM Store since it was missing.
-2026/01/15-16:35:14.934 b6e7a Reusing MANIFEST /home/nick/Github/conbrako-laser/.cache/ms-playwright/mcp-chrome-62e54a3/Default/GCM Store/MANIFEST-000001
+2026/01/16-09:48:20.539 11a9d5 Reusing MANIFEST /home/nick/Github/conbrako-laser/.cache/ms-playwright/mcp-chrome-62e54a3/Default/GCM Store/MANIFEST-000001
+2026/01/16-09:48:20.541 11a9d5 Recovering log #3
+2026/01/16-09:48:20.541 11a9d5 Reusing old log /home/nick/Github/conbrako-laser/.cache/ms-playwright/mcp-chrome-62e54a3/Default/GCM Store/000003.log 
